@@ -6,7 +6,7 @@ import com.hungho.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 
 class GetUserPagingSourceUseCase(private val userRepository: UserRepository) {
-    suspend operator fun invoke(): Flow<PagingData<UserModel>> {
+    operator fun invoke(): Flow<PagingData<UserModel>> {
         return userRepository.getUserPaging()
     }
 }

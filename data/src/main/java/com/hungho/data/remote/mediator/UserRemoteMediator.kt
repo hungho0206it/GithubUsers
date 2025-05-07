@@ -19,7 +19,10 @@ internal class UserRemoteMediator(
 ) : RemoteMediator<Int, UserEntity>() {
     override suspend fun initialize(): InitializeAction {
         val cacheTimeout = TimeUnit.MILLISECONDS.convert(30, TimeUnit.MINUTES)
-        val lastUpdate = appPreferences.getValue(AppPreferenceKey.LONG_LAST_TIME_FETCH_USER, 0)
+        val lastUpdate = appPreferences.getValue(
+            AppPreferenceKey.LONG_LAST_TIME_FETCH_USER,
+            0
+        )
         return if (System.currentTimeMillis() - lastUpdate <= cacheTimeout) {
             InitializeAction.SKIP_INITIAL_REFRESH
         } else {
@@ -36,7 +39,7 @@ internal class UserRemoteMediator(
             LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
             LoadType.APPEND -> {
                 state.lastItemOrNull()?.id
-                    ?: return MediatorResult.Success(endOfPaginationReached = true)
+                    ?: return MediatorResult.Success(endOfPaginationReached = false)
             }
         }
 
@@ -53,7 +56,6 @@ internal class UserRemoteMediator(
             }
 
             userDao.insertUsers(users)
-
             MediatorResult.Success(endOfPaginationReached = response.size < state.config.pageSize)
         } catch (e: Exception) {
             MediatorResult.Error(e)

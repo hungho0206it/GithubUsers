@@ -66,6 +66,14 @@ dependencies {
     implementation(libs.koin)
     implementation(libs.koin.android)
     implementation(libs.koin.android.compat)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation)
+
+    //Image
+    implementation(libs.glide)
+
+    //SwipeToRefresh
+    implementation(libs.swipeRefreshLayout)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
