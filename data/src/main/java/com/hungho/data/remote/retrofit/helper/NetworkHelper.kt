@@ -7,7 +7,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import kotlin.jvm.java
 
 internal object NetworkHelper {
     fun buildOkkHttpClient(): OkHttpClient {

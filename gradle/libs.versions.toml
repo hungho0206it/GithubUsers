@@ -19,6 +19,7 @@ ksp = "2.0.21-1.0.27"
 securityCrypto = "1.0.0"
 sqlCypher = "4.5.3"
 sqlite = "2.1.0"
+timber = "5.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -46,6 +47,7 @@ navigation-fragment = { group = "androidx.navigation", name = "navigation-fragme
 securityCrypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
 sqlCypher = { group = "net.zetetic", name = "android-database-sqlcipher", version.ref = "sqlCypher" }
 sqlite = { group = "androidx.sqlite", name = "sqlite", version.ref = "sqlite" }
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
