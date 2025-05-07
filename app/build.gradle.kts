@@ -47,6 +47,7 @@ android {
 
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
 }
 
@@ -58,7 +59,10 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
-    //Koin
+    //Logger
+    implementation(libs.timber)
+
+    //DI
     implementation(libs.koin)
     implementation(libs.koin.android)
     implementation(libs.koin.android.compat)
