@@ -5,5 +5,5 @@ import com.hungho.domain.model.UserModel
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
-    suspend fun getUserPaging(): Flow<PagingData<UserModel>>
+    fun getUserPaging(): Flow<PagingData<UserModel>>
 }

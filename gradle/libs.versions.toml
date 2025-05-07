@@ -20,6 +20,7 @@ securityCrypto = "1.0.0"
 sqlCypher = "4.5.3"
 sqlite = "2.1.0"
 timber = "5.0.1"
+swipeRefreshLayout = "1.2.0-alpha01"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -48,6 +49,7 @@ securityCrypto = { group = "androidx.security", name = "security-crypto", versio
 sqlCypher = { group = "net.zetetic", name = "android-database-sqlcipher", version.ref = "sqlCypher" }
 sqlite = { group = "androidx.sqlite", name = "sqlite", version.ref = "sqlite" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+swipeRefreshLayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swipeRefreshLayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

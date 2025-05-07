@@ -20,7 +20,7 @@ internal class UserRepositoryImpl(
     private val appPreferences: AppPreferences,
 ) : UserRepository {
     @OptIn(ExperimentalPagingApi::class)
-    override suspend fun getUserPaging(): Flow<PagingData<UserModel>> {
+    override fun getUserPaging(): Flow<PagingData<UserModel>> {
         return Pager(
             config = PagingConfig(
                 pageSize = UserRemoteMediator.PAGE_SIZE,
