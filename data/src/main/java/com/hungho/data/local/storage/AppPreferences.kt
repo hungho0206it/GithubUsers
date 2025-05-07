@@ -100,7 +100,7 @@ class AppPreferences(val context: Context) {
     }
 
     enum class AppPrefKey {
-
+        LONG_LAST_TIME_FETCH_USER
     }
 }
 
