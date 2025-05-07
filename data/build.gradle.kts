@@ -79,7 +79,6 @@ dependencies {
     implementation(libs.room)
     implementation(libs.room.ktx)
     implementation(libs.room.paging)
-    implementation(libs.paging)
     implementation(libs.sqlite)
     implementation(libs.sqlCypher)
     ksp(libs.room.compiler)
