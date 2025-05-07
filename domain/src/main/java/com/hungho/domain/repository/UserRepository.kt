@@ -1,8 +1,9 @@
 package com.hungho.domain.repository
 
+import androidx.paging.PagingData
 import com.hungho.domain.model.UserModel
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
-    fun getUsers(since: Int, perPage: Int): Flow<List<UserModel>>
+    fun getUserPaging()  : Flow<PagingData<UserModel>>
 }

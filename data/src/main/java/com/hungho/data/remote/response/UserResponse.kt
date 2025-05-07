@@ -15,11 +15,10 @@ internal data class UserResponse(
     @SerializedName("html_url")
     val htmlUrl: String?
 ) {
-    fun toUserEntity(): UserEntity? {
-        if (this.id == null || this.login == null) return null
+    fun toUserEntity(): UserEntity {
         return UserEntity(
-            id = this.id,
-            loginUsername = this.login,
+            id = this.id ?: 0,
+            loginUsername = this.login.orEmpty(),
             avatarUrl = this.avatarUrl.orEmpty(),
             htmlUrl = this.htmlUrl.orEmpty()
         )

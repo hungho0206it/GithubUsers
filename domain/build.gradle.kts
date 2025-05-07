@@ -32,6 +32,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
+    api(libs.paging)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
