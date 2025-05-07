@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 internal object NetworkHelper {
-    fun buildOkkHttpClient(): OkHttpClient {
+    fun buildOkkHttpClient(headerInterceptor: HeaderInterceptor): OkHttpClient {
         val loggerInterceptor = HttpLoggingInterceptor()
         if (BuildConfig.DEBUG) {
             loggerInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -18,6 +18,7 @@ internal object NetworkHelper {
         }
         return OkHttpClient.Builder()
             .addInterceptor(loggerInterceptor)
+            .addInterceptor(headerInterceptor)
             .readTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
