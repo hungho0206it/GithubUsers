@@ -3,6 +3,8 @@ package com.hungho.githubusers.ui.feature.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
+import com.hungho.data.error.helper.toFailure
 import com.hungho.domain.model.UserModel
 import com.hungho.githubusers.databinding.FragmentHomeBinding
 import com.hungho.githubusers.ui.base.BaseFragment
@@ -43,6 +45,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     private fun initRecyclerView() {
         viewBinding?.rvUsers?.apply {
             adapter = userPagingAdapter.withLoadStateFooter(FooterAdapter())
+
+            userPagingAdapter.addLoadStateListener { loadState ->
+                val refreshError = loadState.refresh as? LoadState.Error
+                val appendError = loadState.append as? LoadState.Error
+                when {
+                    refreshError != null -> {
+                        onError(refreshError.error.toFailure())
+                    }
+
+                    appendError != null -> {
+                        onError(appendError.error.toFailure())
+                    }
+                }
+            }
         }
     }
 
