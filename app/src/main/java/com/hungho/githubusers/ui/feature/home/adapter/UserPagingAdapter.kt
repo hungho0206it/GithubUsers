@@ -47,7 +47,7 @@ class UserPagingAdapter(
         BaseViewHolder<UserModel>(binding.root, onItemClick) {
         override fun onBind(item: UserModel, position: Int) {
             binding.apply {
-                tvUsername.text = item.username + " " + item.id
+                tvUsername.text = item.username
                 ImageLoader.load(ivAvatar, item.avatarUrl)
                 tvUserLink.text = item.htmlUrl
 
