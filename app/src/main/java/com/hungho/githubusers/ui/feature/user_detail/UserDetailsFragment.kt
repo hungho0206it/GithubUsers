@@ -46,6 +46,10 @@ class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding, UserDetails
         }
     }
 
+    override fun onCloseErrorMessage() {
+        findNavController().navigateUp()
+    }
+
     private fun updateUi(userDetails: UserDetailsModel) {
         viewBinding?.apply {
             val followers = if (userDetails.follower > 100) {

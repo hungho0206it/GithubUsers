@@ -172,11 +172,14 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
         onShowErrorMessage(message)
     }
 
+    open fun onCloseErrorMessage() = Unit
+
     open fun onShowErrorMessage(message: String) {
         AlertDialog.Builder(context)
             .setTitle(getString(R.string.error))
             .setMessage(message)
             .setPositiveButton(R.string.text_ok) { dialog, _ ->
+                onCloseErrorMessage()
                 dialog.dismiss()
             }
             .setCancelable(false)

@@ -32,7 +32,7 @@ class FooterAdapter : LoadStateAdapter<FooterAdapter.FooterViewHolder>() {
     class FooterViewHolder(private val binding: ItemFooterBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(loadState: LoadState) {
-            binding.progresBar.visibleOrGone(loadState == LoadState.Loading)
+            binding.progressBar.visibleOrGone(loadState == LoadState.Loading)
         }
     }
 }
