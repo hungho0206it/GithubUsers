@@ -19,3 +19,21 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Keep all Koin related classes and inject functions
+-keepclassmembers class * {
+    @org.koin.core.annotation.* <methods>;
+}
+-keep class org.koin.** { *; }
+-dontwarn org.koin.**
+
+# Required by Glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep class com.bumptech.glide.** { *; }
+-keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder { *; }
+-keep interface com.bumptech.glide.load.model.ModelLoader { *; }
+-dontwarn com.bumptech.glide.**
+
+# Navigation UI
+-keep class androidx.navigation.** { *; }
+-dontwarn androidx.navigation.**
