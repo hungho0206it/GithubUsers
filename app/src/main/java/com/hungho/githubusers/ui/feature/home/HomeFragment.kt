@@ -2,14 +2,18 @@ package com.hungho.githubusers.ui.feature.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.hungho.data.error.helper.toFailure
 import com.hungho.domain.model.UserModel
+import com.hungho.githubusers.R
 import com.hungho.githubusers.databinding.FragmentHomeBinding
 import com.hungho.githubusers.ui.base.BaseFragment
 import com.hungho.githubusers.ui.feature.home.adapter.FooterAdapter
 import com.hungho.githubusers.ui.feature.home.adapter.UserPagingAdapter
+import com.hungho.githubusers.ui.feature.user_detail.UserDetailsFragment
 import com.hungho.githubusers.ui.utils.extension.openBrowser
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -70,7 +74,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     private fun handleOnUserItemClick(item: UserModel) {
-        //TODO: Open user detail screen
+        findNavController().navigate(
+            R.id.action_homeFragment_to_userDetailsFragment, bundleOf(
+                UserDetailsFragment.KEY_USERNAME to item.username
+            )
+        )
     }
 
     private fun handleOnUserHtmlUrlClick(url: String) {
