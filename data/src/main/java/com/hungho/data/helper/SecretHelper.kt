@@ -1,8 +1,8 @@
-package com.hungho.data.local.storage.helper
+package com.hungho.data.helper
 
 import android.util.Base64
 
-object SecretHelper {
+internal object SecretHelper {
     init {
         System.loadLibrary("secret")
     }

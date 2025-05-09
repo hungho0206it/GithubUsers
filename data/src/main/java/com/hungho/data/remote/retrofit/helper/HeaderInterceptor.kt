@@ -1,6 +1,6 @@
 package com.hungho.data.remote.retrofit.helper
 
-import com.hungho.data.local.storage.helper.SecretHelper
+import com.hungho.data.helper.SecretHelper
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response

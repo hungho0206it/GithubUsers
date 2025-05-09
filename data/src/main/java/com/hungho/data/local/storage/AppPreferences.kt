@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.hungho.data.local.storage.helper.EncryptedPrefsHelper
+import com.hungho.data.helper.EncryptedPrefsHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

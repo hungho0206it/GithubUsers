@@ -9,9 +9,11 @@ import com.hungho.data.local.database.AppDatabase
 import com.hungho.data.local.storage.AppPreferences
 import com.hungho.data.remote.mediator.UserRemoteMediator
 import com.hungho.data.remote.retrofit.UserServices
+import com.hungho.domain.model.UserDetailsModel
 import com.hungho.domain.model.UserModel
 import com.hungho.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 internal class UserRepositoryImpl(
@@ -34,5 +36,12 @@ internal class UserRepositoryImpl(
             ),
             pagingSourceFactory = { database.userDao().getUserPagingSource() }
         ).flow.map { pagingData -> pagingData.map { it.toUserModel() } }
+    }
+
+    override fun getUserDetails(username: String): Flow<UserDetailsModel> {
+        return flow {
+            val response = userServices.getUserDetails(username)
+            emit(response.toUserDetailsModel())
+        }
     }
 }

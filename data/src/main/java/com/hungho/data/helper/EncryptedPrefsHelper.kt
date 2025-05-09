@@ -1,4 +1,4 @@
-package com.hungho.data.local.storage.helper
+package com.hungho.data.helper
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties

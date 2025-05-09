@@ -1,8 +1,8 @@
-package com.hungho.data.local.storage.helper
+package com.hungho.data.helper
 
 import com.hungho.data.BuildConfig
 
-object FlavorHelper {
+internal object FlavorHelper {
     fun isDevMode() = BuildConfig.FLAVOR == "dev"
 
     fun isProdMode() = BuildConfig.FLAVOR == "prod"
