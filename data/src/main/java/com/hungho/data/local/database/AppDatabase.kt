@@ -6,12 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.hungho.data.helper.FlavorHelper
+import com.hungho.data.helper.SecretHelper
 import com.hungho.data.local.database.dao.UserDao
 import com.hungho.data.local.database.dao.UserRemoteKeyDao
 import com.hungho.data.local.database.entity.UserEntity
 import com.hungho.data.local.database.entity.UserRemoteKeyEntity
-import com.hungho.data.local.storage.helper.FlavorHelper
-import com.hungho.data.local.storage.helper.SecretHelper
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 

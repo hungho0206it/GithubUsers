@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.hungho.data.local.database.entity.UserRemoteKeyEntity
 
 @Dao
-interface UserRemoteKeyDao {
+internal interface UserRemoteKeyDao {
     @Query("SELECT * FROM user_remote_keys WHERE userId = :userId")
     suspend fun getRemoteKeyByUserId(userId: Int): UserRemoteKeyEntity?
 
