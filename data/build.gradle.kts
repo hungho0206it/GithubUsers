@@ -69,7 +69,7 @@ dependencies {
     implementation(libs.okhttp.logging)
 
     //Gson
-    implementation(libs.gson)
+    api(libs.gson)
 
     //Retrofit
     implementation(libs.retrofit)
