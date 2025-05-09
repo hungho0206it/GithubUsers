@@ -43,7 +43,12 @@ class UserPagingAdapter(
         )
     }
 
-    inner class UserViewHolder(private val binding: ItemUserBinding) :
+    override fun onViewRecycled(holder: UserViewHolder) {
+        super.onViewRecycled(holder)
+        ImageLoader.clear(holder.binding.ivAvatar)
+    }
+
+    inner class UserViewHolder(val binding: ItemUserBinding) :
         BaseViewHolder<UserModel>(binding.root, onItemClick) {
         override fun onBind(item: UserModel, position: Int) {
             binding.apply {
