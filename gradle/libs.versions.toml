@@ -21,6 +21,9 @@ sqlCypher = "4.5.3"
 sqlite = "2.1.0"
 timber = "5.0.1"
 swipeRefreshLayout = "1.2.0-alpha01"
+mockk = "1.13.5"
+coroutinesTest = "1.7.3"
+androidCoreTest = "1.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,7 +36,7 @@ room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
-paging = { module = "androidx.paging:paging-runtime-ktx", version.ref = "paging" }
+paging = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "paging" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
@@ -50,6 +53,11 @@ sqlCypher = { group = "net.zetetic", name = "android-database-sqlcipher", versio
 sqlite = { group = "androidx.sqlite", name = "sqlite", version.ref = "sqlite" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 swipeRefreshLayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swipeRefreshLayout" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "paging" }
+paging-test = { group = "androidx.paging", name = "paging-testing", version.ref = "paging" }
+androidCore-test = { group = "androidx.test", name = "core-ktx", version.ref = "androidCoreTest" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

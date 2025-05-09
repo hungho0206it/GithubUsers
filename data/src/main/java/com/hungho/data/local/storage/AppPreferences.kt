@@ -2,6 +2,7 @@ package com.hungho.data.local.storage
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.hungho.data.helper.EncryptedPrefsHelper
@@ -16,8 +17,15 @@ fun Context.getAppPreferences(): SharedPreferences {
 @Suppress("UNCHECKED_CAST")
 fun <T> Any.convert() = this as T
 
-class AppPreferences(val context: Context) {
-    fun <T> saveValueEncrypted(shareKey: AppPreferenceKey, value: T) {
+interface IAppPreferences {
+    fun <T> saveValue(shareKey: AppPreferenceKey, value: T)
+    fun <T> getValue(shareKey: AppPreferenceKey, default: T): T
+    fun <T> saveValueEncrypted(shareKey: AppPreferenceKey, value: T)
+    fun <T> getValueEncrypted(shareKey: AppPreferenceKey, default: T): T
+}
+
+class AppPreferences(val context: Context) : IAppPreferences {
+    override fun <T> saveValueEncrypted(shareKey: AppPreferenceKey, value: T) {
         CoroutineScope(Dispatchers.IO).launch {
             context.getAppPreferences().edit().apply {
                 val key = shareKey.name
@@ -33,7 +41,10 @@ class AppPreferences(val context: Context) {
         }
     }
 
-    inline fun <reified T> getValueEncrypted(shareKey: AppPreferenceKey, default: T): T {
+    override fun <T> getValueEncrypted(
+        shareKey: AppPreferenceKey,
+        default: T
+    ): T {
         return try {
             context.getAppPreferences().let {
                 val key = shareKey.name
@@ -63,7 +74,8 @@ class AppPreferences(val context: Context) {
         }
     }
 
-    fun <T> saveValue(shareKey: AppPreferenceKey, value: T) {
+
+    override fun <T> saveValue(shareKey: AppPreferenceKey, value: T) {
         CoroutineScope(Dispatchers.IO).launch {
             context.getAppPreferences().edit().apply {
                 val key = shareKey.name
@@ -80,7 +92,7 @@ class AppPreferences(val context: Context) {
         }
     }
 
-    inline fun <reified T> getValue(shareKey: AppPreferenceKey, default: T): T {
+    override fun <T> getValue(shareKey: AppPreferenceKey, default: T): T {
         return try {
             context.getAppPreferences().let {
                 val key = shareKey.name

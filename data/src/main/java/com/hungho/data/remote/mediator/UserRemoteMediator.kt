@@ -44,9 +44,7 @@ internal class UserRemoteMediator(
             LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
             LoadType.APPEND -> {
                 val lastItem = state.lastItemOrNull() ?: return MediatorResult.Success(false)
-                val remoteKey = database.withTransaction {
-                    remoteKeyDao.getRemoteKeyByUserId(lastItem.id)
-                }
+                val remoteKey = remoteKeyDao.getRemoteKeyByUserId(lastItem.id)
                 remoteKey?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = true)
             }
         }
