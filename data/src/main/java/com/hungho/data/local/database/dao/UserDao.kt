@@ -9,10 +9,10 @@ import com.hungho.data.local.database.entity.UserEntity
 
 @Dao
 internal interface UserDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUsers(users: List<UserEntity>)
 
-    @Query("SELECT * FROM users")
+    @Query("SELECT * FROM users ORDER BY id ASC")
     fun getUserPagingSource(): PagingSource<Int, UserEntity>
 
     @Query("DELETE FROM users")

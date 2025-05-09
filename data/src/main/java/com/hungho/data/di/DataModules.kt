@@ -17,10 +17,6 @@ val localModule = module {
     }
 
     single {
-        get<AppDatabase>().userDao()
-    }
-
-    single {
         AppPreferences(androidContext())
     }
 }

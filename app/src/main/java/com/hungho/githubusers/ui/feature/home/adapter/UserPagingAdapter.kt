@@ -28,7 +28,6 @@ class UserPagingAdapter(
     ): Boolean {
         return oldItem == newItem
     }
-
 }) {
     override fun onCreateViewHolder(
         viewType: Int,
@@ -48,7 +47,7 @@ class UserPagingAdapter(
         BaseViewHolder<UserModel>(binding.root, onItemClick) {
         override fun onBind(item: UserModel, position: Int) {
             binding.apply {
-                tvUsername.text = item.username
+                tvUsername.text = item.username + " " + item.id
                 ImageLoader.load(ivAvatar, item.avatarUrl)
                 tvUserLink.text = item.htmlUrl
 

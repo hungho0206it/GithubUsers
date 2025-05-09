@@ -5,7 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.hungho.data.local.database.dao.UserDao
+import com.hungho.data.local.database.AppDatabase
 import com.hungho.data.local.storage.AppPreferences
 import com.hungho.data.remote.mediator.UserRemoteMediator
 import com.hungho.data.remote.retrofit.UserServices
@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.map
 
 internal class UserRepositoryImpl(
     private val userServices: UserServices,
-    private val userDao: UserDao,
+    private val database: AppDatabase,
     private val appPreferences: AppPreferences,
 ) : UserRepository {
     @OptIn(ExperimentalPagingApi::class)
@@ -25,15 +25,14 @@ internal class UserRepositoryImpl(
             config = PagingConfig(
                 pageSize = UserRemoteMediator.PAGE_SIZE,
                 initialLoadSize = UserRemoteMediator.PAGE_SIZE,
-                prefetchDistance = UserRemoteMediator.PAGE_SIZE / 2,
-                enablePlaceholders = false
+                prefetchDistance = 5,
             ),
             remoteMediator = UserRemoteMediator(
                 userServices = userServices,
-                userDao = userDao,
+                database = database,
                 appPreferences = appPreferences
             ),
-            pagingSourceFactory = { userDao.getUserPagingSource() }
+            pagingSourceFactory = { database.userDao().getUserPagingSource() }
         ).flow.map { pagingData -> pagingData.map { it.toUserModel() } }
     }
 }
