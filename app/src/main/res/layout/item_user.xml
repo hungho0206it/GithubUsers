@@ -59,12 +59,11 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvUserLink"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:autoLink="all"
             android:textColorLink="@color/dark_saturated_blue"
-            app:layout_constraintEnd_toEndOf="@id/tvUsername"
             app:layout_constraintStart_toStartOf="@id/tvUsername"
             app:layout_constraintTop_toBottomOf="@id/divider"
             tools:text="https://linkedin.com" />
