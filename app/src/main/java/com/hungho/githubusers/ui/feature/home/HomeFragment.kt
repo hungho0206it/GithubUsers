@@ -37,7 +37,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun initViewModel() {
         lifecycleScope.launch {
             viewModel.userPagingSource.collectLatest {
-                userPagingAdapter.submitData(lifecycle, it)
+                userPagingAdapter.submitData(it)
             }
         }
     }
