@@ -1,6 +1,5 @@
 package com.hungho.data.remote.mediator
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -44,16 +43,13 @@ internal class UserRemoteMediator(
             LoadType.REFRESH -> START_SINCE
             LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
             LoadType.APPEND -> {
-                val remoteKey = state.lastItemOrNull()?.let {
-                    database.withTransaction {
-                        remoteKeyDao.getRemoteKeyByUserId(it.id)
-                    }
+                val lastItem = state.lastItemOrNull() ?: return MediatorResult.Success(false)
+                val remoteKey = database.withTransaction {
+                    remoteKeyDao.getRemoteKeyByUserId(lastItem.id)
                 }
                 remoteKey?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = true)
             }
         }
-
-        Log.d("UserRemoteMediator", "loadType $loadType - State: $state")
 
         return try {
             val response = userServices.getUsers(since, state.config.pageSize)

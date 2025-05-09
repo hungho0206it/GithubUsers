@@ -14,7 +14,6 @@ import com.hungho.githubusers.ui.utils.extension.openBrowser
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override val viewModel: HomeViewModel by viewModel()
@@ -37,13 +36,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun initViewModel() {
         lifecycleScope.launch {
-            var isFirst = false
             viewModel.userPagingSource.collectLatest {
                 userPagingAdapter.submitData(it)
-                if (!isFirst) {
-                    isFirst = true
-//                    userPagingAdapter.refresh()
-                }
             }
         }
     }
@@ -55,7 +49,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             userPagingAdapter.addLoadStateListener { loadState ->
                 val refreshError = loadState.refresh as? LoadState.Error
                 val appendError = loadState.append as? LoadState.Error
-                Timber.tag("UserRemoteMediator").d("loadState: $loadState")
                 when {
                     refreshError != null -> {
                         onError(refreshError.error.toFailure())
