@@ -1,4 +1,4 @@
-package com.hungho.data.error.helper
+package com.hungho.data.helper
 
 import com.google.gson.JsonParseException
 import com.hungho.data.error.Failure

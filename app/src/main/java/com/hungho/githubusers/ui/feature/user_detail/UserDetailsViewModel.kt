@@ -1,7 +1,7 @@
 package com.hungho.githubusers.ui.feature.user_detail
 
 import androidx.lifecycle.viewModelScope
-import com.hungho.data.error.helper.toFailure
+import com.hungho.data.helper.toFailure
 import com.hungho.domain.model.UserDetailsModel
 import com.hungho.domain.usecase.GetUserDetailsUseCase
 import com.hungho.githubusers.ui.base.BaseViewModel
