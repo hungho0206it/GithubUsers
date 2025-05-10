@@ -1,5 +1,6 @@
 package com.hungho.data.di
 
+import com.hungho.data.BuildConfig
 import com.hungho.data.helper.AndroidKeyStoreProvider
 import com.hungho.data.helper.BuildFlavor
 import com.hungho.data.helper.EncryptedPrefsHelper
@@ -54,7 +55,9 @@ val localModule = module {
 
 val remoteModule = module {
     singleOf(::HeaderInterceptor)
-    singleOf(NetworkHelper::buildOkkHttpClient)
+    single {
+        NetworkHelper.buildOkkHttpClient(get(), BuildConfig.DEBUG)
+    }
     singleOf(NetworkHelper::buildService)
 }
 

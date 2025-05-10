@@ -2,10 +2,7 @@ package com.hungho.data.remote.response
 
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 
-@RunWith(RobolectricTestRunner::class)
 class UserDetailsResponseTest {
 
     @Test
@@ -34,5 +31,33 @@ class UserDetailsResponseTest {
         assertEquals(userDetailsModel.location, userDetailsResponse.location)
         assertEquals(userDetailsModel.follower, userDetailsResponse.followers)
         assertEquals(userDetailsModel.following, userDetailsResponse.following)
+    }
+
+    @Test
+    fun `toUserDetailsModel converts UserDetailsResponse with null values to UserDetailsModel`() {
+        // Given
+        val userDetailsResponse = UserDetailsResponse(
+            id = null,
+            login = null,
+            avatarUrl = null,
+            blog = null,
+            htmlUrl = null,
+            location = null,
+            followers = null,
+            following = null,
+        )
+
+        // When
+        val userDetailsModel = userDetailsResponse.toUserDetailsModel()
+
+        // Then
+        assertEquals(0, userDetailsModel.id)
+        assertEquals("", userDetailsModel.username)
+        assertEquals("", userDetailsModel.avatarUrl)
+        assertEquals("", userDetailsModel.blog)
+        assertEquals("", userDetailsModel.htmlUrl)
+        assertEquals("", userDetailsModel.location)
+        assertEquals(0, userDetailsModel.follower)
+        assertEquals(0, userDetailsModel.following)
     }
 }
