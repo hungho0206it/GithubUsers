@@ -34,7 +34,7 @@ class UserDaoTest {
 
     @After
     @Throws(IOException::class)
-    fun closeDb() {
+    fun tearDown() {
         roomDatabase.close()
     }
 
