@@ -26,13 +26,13 @@ internal abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         const val DATABASE_NAME = "app_database"
-        fun getInstance(context: Context): AppDatabase {
+        fun getInstance(context: Context, flavorHelper: FlavorHelper): AppDatabase {
             val builder = Room.databaseBuilder(
                 context,
                 AppDatabase::class.java,
                 DATABASE_NAME
             ).addMigrations(MIGRATION_1_2)
-            if (FlavorHelper.isProdMode()) {
+            if (flavorHelper.isProdMode()) {
                 val databaseKey = SecretHelper.getDatabaseKey()
                 val passphrase = SQLiteDatabase.getBytes(databaseKey.toCharArray())
                 val factory = SupportFactory(passphrase)

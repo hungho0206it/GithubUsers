@@ -5,13 +5,9 @@ sealed class Failure : Throwable() {
 
     class NetworkFailure(val errorMessage: String) : Failure()
 
-    data object UnauthorizedFailure : Failure() {
-        private fun readResolve(): Any = UnauthorizedFailure
-    }
+    data object UnauthorizedFailure : Failure()
 
     class UnknownFailure(val errorMessage: String?) : Failure()
 
-    object ResponseParserFailure : Failure() {
-        private fun readResolve(): Any = ResponseParserFailure
-    }
+    object ResponseParserFailure : Failure()
 }

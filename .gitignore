@@ -16,3 +16,4 @@ keystore
 /app/prod
 /app/dev
 /data/schemas/*
+/htmlReport

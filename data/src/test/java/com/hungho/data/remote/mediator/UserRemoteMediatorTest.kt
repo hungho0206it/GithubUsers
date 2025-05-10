@@ -28,8 +28,11 @@ import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 import java.util.concurrent.TimeUnit
 
+@RunWith(RobolectricTestRunner::class)
 @ExperimentalPagingApi
 class UserRemoteMediatorTest {
     private lateinit var userServices: UserServices
