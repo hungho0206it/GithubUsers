@@ -24,11 +24,14 @@ swipeRefreshLayout = "1.2.0-alpha01"
 mockk = "1.13.5"
 coroutinesTest = "1.7.3"
 androidCoreTest = "1.6.1"
+robolectric = "4.14.1"
+roomTestingAndroid = "2.7.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-test = { group = "androidx.test", name = "core-ktx", version.ref = "androidCoreTest" }
+androidx-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
@@ -36,6 +39,9 @@ room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
+room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
+room-testing-android = { group = "androidx.room", name = "room-testing-android", version.ref = "roomTestingAndroid" }
+
 paging = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "paging" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
@@ -57,7 +63,7 @@ mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTest" }
 paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "paging" }
 paging-test = { group = "androidx.paging", name = "paging-testing", version.ref = "paging" }
-androidCore-test = { group = "androidx.test", name = "core-ktx", version.ref = "androidCoreTest" }
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
