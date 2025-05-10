@@ -31,7 +31,7 @@ class UserRemoteKeyDaoTest {
 
     @After
     @Throws(IOException::class)
-    fun closeDb() {
+    fun tearDown() {
         roomDatabase.close()
     }
 
