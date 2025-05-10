@@ -90,11 +90,15 @@ dependencies {
     //Crypto
     implementation(libs.securityCrypto)
 
-    testImplementation(libs.junit)
+
+
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.coroutines.test)
     testImplementation(libs.paging.test)
     testImplementation(libs.paging.common)
-    testImplementation(libs.androidCore.test)
+    testImplementation(libs.androidx.test)
+    testImplementation(libs.androidx.junit)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.room.testing)
 }
