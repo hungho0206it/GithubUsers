@@ -1,90 +1,37 @@
 package com.hungho.data.local.storage
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.hungho.data.helper.EncryptedPrefsHelper
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-
-fun Context.getAppPreferences(): SharedPreferences {
-    return getSharedPreferences(packageName, Context.MODE_PRIVATE)
-}
-
-@Suppress("UNCHECKED_CAST")
-fun <T> Any.convert() = this as T
+import com.hungho.data.helper.IEncrypted
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 
 interface IAppPreferences {
-    fun <T> saveValue(shareKey: AppPreferenceKey, value: T)
+    suspend fun <T> saveValue(shareKey: AppPreferenceKey, value: T)
     fun <T> getValue(shareKey: AppPreferenceKey, default: T): T
-    fun <T> saveValueEncrypted(shareKey: AppPreferenceKey, value: T)
-    fun <T> getValueEncrypted(shareKey: AppPreferenceKey, default: T): T
+    suspend fun saveValueEncrypted(shareKey: AppPreferenceKey, value: String)
+    fun getValueEncrypted(shareKey: AppPreferenceKey): String?
 }
 
-class AppPreferences(val context: Context) : IAppPreferences {
-    override fun <T> saveValueEncrypted(shareKey: AppPreferenceKey, value: T) {
-        CoroutineScope(Dispatchers.IO).launch {
-            context.getAppPreferences().edit().apply {
-                val key = shareKey.name
-                val stringValue = when (value) {
-                    is Int, is Long, is Boolean, is Float, is String -> value.toString()
-                    is Set<*> -> Gson().toJson(value)
-                    else -> Gson().toJson(value)
-                }
-                val encrypted = EncryptedPrefsHelper.encrypt(stringValue)
-                putString(key, encrypted)
-                apply()
-            }
-        }
-    }
+class AppPreferences(
+    context: Context,
+    private val encryptedPrefsHelper: IEncrypted,
+    private val coroutineDispatcher: CoroutineDispatcher,
+) : IAppPreferences {
 
-    override fun <T> getValueEncrypted(
-        shareKey: AppPreferenceKey,
-        default: T
-    ): T {
-        return try {
-            context.getAppPreferences().let {
-                val key = shareKey.name
-                val encryptedValue = it.getString(key, null) ?: return default
-                val decrypted = try {
-                    EncryptedPrefsHelper.decrypt(encryptedValue)
-                } catch (_: Exception) {
-                    return default
-                }
+    private val sharedPreferences =
+        context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
 
-                when (T::class) {
-                    Int::class -> decrypted.toIntOrNull() ?: default
-                    Long::class -> decrypted.toLongOrNull() ?: default
-                    Boolean::class -> decrypted.toBooleanStrictOrNull() ?: default
-                    Float::class -> decrypted.toFloatOrNull() ?: default
-                    String::class -> decrypted as T
-                    Set::class -> Gson().fromJson(
-                        decrypted,
-                        object : TypeToken<Set<String>>() {}.type
-                    )
-
-                    else -> Gson().fromJson(decrypted, T::class.java)
-                }
-            }?.convert<T>() ?: default
-        } catch (_: Exception) {
-            default
-        }
-    }
-
-
-    override fun <T> saveValue(shareKey: AppPreferenceKey, value: T) {
-        CoroutineScope(Dispatchers.IO).launch {
-            context.getAppPreferences().edit().apply {
+    override suspend fun <T> saveValue(shareKey: AppPreferenceKey, value: T) {
+        withContext(coroutineDispatcher) {
+            sharedPreferences.edit().apply {
                 val key = shareKey.name
                 when (value) {
                     is Int -> putInt(key, value)
                     is Long -> putLong(key, value)
                     is Boolean -> putBoolean(key, value)
                     is String -> putString(key, value)
-                    is Float -> putFloat(key, value)
+                    is Float, is Double -> putFloat(key, value.toFloat())
                     is Set<*> -> putStringSet(key, value.convert())
                 }
                 apply()
@@ -94,14 +41,14 @@ class AppPreferences(val context: Context) : IAppPreferences {
 
     override fun <T> getValue(shareKey: AppPreferenceKey, default: T): T {
         return try {
-            context.getAppPreferences().let {
+            sharedPreferences.let {
                 val key = shareKey.name
                 when (T::class) {
                     Int::class -> it.getInt(key, default as Int)
                     Long::class -> it.getLong(key, default as Long)
                     Boolean::class -> it.getBoolean(key, default as Boolean)
                     String::class -> it.getString(key, default as String)
-                    Float::class -> it.getFloat(key, default as Float)
+                    Float::class, Double::class -> it.getFloat(key, default as Float)
                     Set::class -> it.getStringSet(key, null)
                     else -> default
                 }
@@ -110,6 +57,38 @@ class AppPreferences(val context: Context) : IAppPreferences {
             default
         }
     }
+
+    override suspend fun saveValueEncrypted(
+        shareKey: AppPreferenceKey,
+        value: String
+    ) {
+        withContext(coroutineDispatcher) {
+            sharedPreferences.edit().apply {
+                val key = shareKey.name
+                val encrypted = encryptedPrefsHelper.encrypt(value)
+                putString(key, encrypted)
+                apply()
+            }
+        }
+    }
+
+    override fun getValueEncrypted(
+        shareKey: AppPreferenceKey,
+    ): String? {
+        return sharedPreferences.let {
+            val key = shareKey.name
+            val encryptedValue = it.getString(key, null) ?: return null
+            try {
+                encryptedPrefsHelper.decrypt(encryptedValue)
+            } catch (_: Exception) {
+                return null
+            }
+        }
+    }
+
+
+    @Suppress("UNCHECKED_CAST")
+    private fun <T> Any?.convert() = this as? T
 
     enum class AppPrefKey {
         LONG_LAST_TIME_FETCH_USER
