@@ -7,9 +7,14 @@ import com.hungho.domain.model.UserModel
 import com.hungho.domain.usecase.GetUserPagingSourceUseCase
 import com.hungho.githubusers.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlin.coroutines.CoroutineContext
 
-class HomeViewModel(getUserPagingSourceUseCase: GetUserPagingSourceUseCase) :
+class HomeViewModel(
+    getUserPagingSourceUseCase: GetUserPagingSourceUseCase,
+    coroutineContext: CoroutineContext
+) :
     BaseViewModel() {
     val userPagingSource: Flow<PagingData<UserModel>> =
-        getUserPagingSourceUseCase().cachedIn(viewModelScope)
+        getUserPagingSourceUseCase().cachedIn(viewModelScope).flowOn(coroutineContext)
 }
