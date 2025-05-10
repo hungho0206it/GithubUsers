@@ -90,8 +90,6 @@ dependencies {
     //Crypto
     implementation(libs.securityCrypto)
 
-
-
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.coroutines.test)
@@ -101,4 +99,6 @@ dependencies {
     testImplementation(libs.androidx.junit)
     testImplementation(libs.robolectric)
     testImplementation(libs.room.testing)
+    testImplementation(libs.room.testing)
+    testImplementation(libs.okhttp.mockwebserver)
 }

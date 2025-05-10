@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.hungho.data.helper.FlavorHelper
-import com.hungho.data.helper.SecretHelper
+import com.hungho.data.helper.ISecretHelper
 import com.hungho.data.local.database.dao.UserDao
 import com.hungho.data.local.database.dao.UserRemoteKeyDao
 import com.hungho.data.local.database.entity.UserEntity
@@ -26,14 +26,18 @@ internal abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         const val DATABASE_NAME = "app_database"
-        fun getInstance(context: Context, flavorHelper: FlavorHelper): AppDatabase {
+        fun getInstance(
+            context: Context,
+            flavorHelper: FlavorHelper,
+            secretHelper: ISecretHelper
+        ): AppDatabase {
             val builder = Room.databaseBuilder(
                 context,
                 AppDatabase::class.java,
                 DATABASE_NAME
             ).addMigrations(MIGRATION_1_2)
             if (flavorHelper.isProdMode()) {
-                val databaseKey = SecretHelper.getDatabaseKey()
+                val databaseKey = secretHelper.getDatabaseKey()
                 val passphrase = SQLiteDatabase.getBytes(databaseKey.toCharArray())
                 val factory = SupportFactory(passphrase)
                 builder.openHelperFactory(factory)

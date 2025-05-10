@@ -4,7 +4,10 @@ import com.hungho.data.helper.AndroidKeyStoreProvider
 import com.hungho.data.helper.BuildFlavor
 import com.hungho.data.helper.EncryptedPrefsHelper
 import com.hungho.data.helper.FlavorHelper
+import com.hungho.data.helper.IEncrypted
+import com.hungho.data.helper.ISecretHelper
 import com.hungho.data.helper.KeyProvider
+import com.hungho.data.helper.SecretHelper
 import com.hungho.data.local.database.AppDatabase
 import com.hungho.data.local.storage.AppPreferences
 import com.hungho.data.remote.retrofit.helper.HeaderInterceptor
@@ -37,8 +40,9 @@ val helperModule = module {
     single {
         FlavorHelper(BuildFlavor)
     }
+    singleOf(::SecretHelper) { bind<ISecretHelper>() }
     singleOf(::AndroidKeyStoreProvider) { bind<KeyProvider>() }
-    singleOf(::EncryptedPrefsHelper)
+    singleOf(::EncryptedPrefsHelper) { bind<IEncrypted>() }
 }
 
 val localModule = module {
@@ -49,9 +53,7 @@ val localModule = module {
 }
 
 val remoteModule = module {
-    single {
-        HeaderInterceptor()
-    }
+    singleOf(::HeaderInterceptor)
     singleOf(NetworkHelper::buildOkkHttpClient)
     singleOf(NetworkHelper::buildService)
 }
