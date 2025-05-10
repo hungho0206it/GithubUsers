@@ -2,10 +2,7 @@ package com.hungho.data.local.database.entity
 
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 
-@RunWith(RobolectricTestRunner::class)
 class UserEntityTest {
 
     @Test

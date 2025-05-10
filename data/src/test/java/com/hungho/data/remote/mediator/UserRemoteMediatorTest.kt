@@ -32,7 +32,6 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import java.util.concurrent.TimeUnit
 
-@RunWith(RobolectricTestRunner::class)
 @ExperimentalPagingApi
 class UserRemoteMediatorTest {
     private lateinit var userServices: UserServices
@@ -142,7 +141,7 @@ class UserRemoteMediatorTest {
     }
 
     @Test
-    fun `append returns Success when pagingState_lastItemOrNull is Null with endOfPaginationReached false`() =
+    fun `load APPEND returns Success with endOfPaginationReached false when lastItemOrNull is null`() =
         runTest {
             //Given
             val pagingState = createPagingState()
@@ -156,6 +155,40 @@ class UserRemoteMediatorTest {
             // Then
             assertTrue(result is MediatorResult.Success)
             assertTrue(!(result as MediatorResult.Success).endOfPaginationReached)
+        }
+
+    @Test
+    fun `load APPEND returns Success with endOfPaginationReached true when nextKey is null`() =
+        runTest {
+            // Given
+            val lastUserEntities = IntRange(1, 20).mockListUserResponse().map { it.toUserEntity() }
+
+            val pagingState = PagingState<Int, UserEntity>(
+                config = PagingConfig(pageSize = UserRemoteMediator.PAGE_SIZE),
+                anchorPosition = 0,
+                pages = listOf(
+                    Page<Int, UserEntity>(
+                        data = lastUserEntities,
+                        prevKey = null,
+                        nextKey = null
+                    )
+                ),
+                leadingPlaceholderCount = 0,
+            )
+
+            coEvery {
+                userRemoteKeyDao.getRemoteKeyByUserId(any())
+            } returns null
+
+            // When
+            val result = userRemoteMediator.load(
+                LoadType.APPEND,
+                pagingState
+            )
+
+            // Then
+            assertTrue(result is MediatorResult.Success)
+            assertTrue((result as MediatorResult.Success).endOfPaginationReached)
         }
 
     @Test

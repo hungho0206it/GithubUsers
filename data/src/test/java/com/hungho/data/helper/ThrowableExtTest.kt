@@ -4,19 +4,14 @@ import com.google.gson.JsonParseException
 import com.hungho.data.error.Failure
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody
 import org.json.JSONException
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
-@RunWith(RobolectricTestRunner::class)
-@OptIn(ExperimentalCoroutinesApi::class)
 class ThrowableExtTest {
     @Test
     fun `HttpException with 401 returns UnauthorizedFailure`() {
