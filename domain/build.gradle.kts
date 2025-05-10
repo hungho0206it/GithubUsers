@@ -13,6 +13,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            enableUnitTestCoverage = true
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -28,6 +31,10 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    testCoverage {
+        jacocoVersion = "0.8.1"
+    }
 }
 
 dependencies {
@@ -35,6 +42,6 @@ dependencies {
     api(libs.paging)
 
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutines.test)
 }
