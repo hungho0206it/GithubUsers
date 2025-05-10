@@ -2,7 +2,12 @@ package com.hungho.data.helper
 
 import android.util.Base64
 
-internal object SecretHelper {
+internal interface ISecretHelper {
+    fun getDatabaseKey(): String
+    fun getAccessToken(): String
+}
+
+internal class SecretHelper : ISecretHelper {
     init {
         System.loadLibrary("secret")
     }
@@ -11,13 +16,13 @@ internal object SecretHelper {
 
     private external fun getGithubAccessToken(): String
 
-    fun getDatabaseKey(): String {
+    override fun getDatabaseKey(): String {
         val encoded = getEncodedDatabase()
         val decodedBytes = Base64.decode(encoded, Base64.DEFAULT)
         return String(decodedBytes, charset("UTF-8"))
     }
 
-    fun getAccessToken(): String {
+    override fun getAccessToken(): String {
         val encoded = getGithubAccessToken()
         val decodedBytes = Base64.decode(encoded, Base64.DEFAULT)
         return String(decodedBytes, charset("UTF-8"))
