@@ -58,22 +58,22 @@ internal class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding, Us
 
     private fun updateUi(userDetails: UserDetailsModel) {
         viewBinding?.apply {
-            val followers = if (userDetails.follower > 100) {
+            val followers = if (userDetails.followers > 100) {
                 getString(R.string.over_100)
             } else {
-                userDetails.follower.toString()
+                userDetails.followers.toString()
             }
-            val followings = if (userDetails.following > 100) {
+            val followings = if (userDetails.followings > 100) {
                 getString(R.string.over_100)
             } else {
-                userDetails.following.toString()
+                userDetails.followings.toString()
             }
             tvFollower.text = followers
             tvFollowing.text = followings
             tvFollowerLabel.text =
-                if (userDetails.follower > 1) getString(R.string.followers) else getString(R.string.follower)
+                if (userDetails.followers > 1) getString(R.string.followers) else getString(R.string.follower)
             tvFollowingLabel.text =
-                if (userDetails.following > 1) getString(R.string.followings) else getString(R.string.following)
+                if (userDetails.followings > 1) getString(R.string.followings) else getString(R.string.following)
             tvUsername.text = userDetails.username
             tvUserLocation.text = userDetails.location
             groupLocation.visibleOrGone(userDetails.location.isNotEmpty())

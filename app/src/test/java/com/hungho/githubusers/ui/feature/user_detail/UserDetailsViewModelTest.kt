@@ -59,8 +59,8 @@ internal class UserDetailsViewModelTest {
             blog = "Android Dev",
             avatarUrl = "https://example.com/avatar",
             htmlUrl = "https://github.com/testuser",
-            follower = 0,
-            following = 0,
+            followers = 0,
+            followings = 0,
             location = "Test"
         )
 

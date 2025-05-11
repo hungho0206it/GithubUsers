@@ -29,8 +29,8 @@ internal class UserDetailsResponseTest {
         assertEquals(userDetailsModel.blog, userDetailsResponse.blog)
         assertEquals(userDetailsModel.htmlUrl, userDetailsResponse.htmlUrl)
         assertEquals(userDetailsModel.location, userDetailsResponse.location)
-        assertEquals(userDetailsModel.follower, userDetailsResponse.followers)
-        assertEquals(userDetailsModel.following, userDetailsResponse.following)
+        assertEquals(userDetailsModel.followers, userDetailsResponse.followers)
+        assertEquals(userDetailsModel.followings, userDetailsResponse.following)
     }
 
     @Test
@@ -57,7 +57,7 @@ internal class UserDetailsResponseTest {
         assertEquals("", userDetailsModel.blog)
         assertEquals("", userDetailsModel.htmlUrl)
         assertEquals("", userDetailsModel.location)
-        assertEquals(0, userDetailsModel.follower)
-        assertEquals(0, userDetailsModel.following)
+        assertEquals(0, userDetailsModel.followers)
+        assertEquals(0, userDetailsModel.followings)
     }
 }
