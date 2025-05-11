@@ -27,8 +27,8 @@ internal data class UserDetailsResponse(
             username = login.orEmpty(),
             avatarUrl = avatarUrl.orEmpty(),
             htmlUrl = htmlUrl.orEmpty(),
-            follower = followers ?: 0,
-            following = following ?: 0,
+            followers = this@UserDetailsResponse.followers ?: 0,
+            followings = following ?: 0,
             location = location.orEmpty(),
             blog = blog.orEmpty()
         )

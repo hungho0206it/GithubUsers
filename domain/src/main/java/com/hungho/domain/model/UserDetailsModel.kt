@@ -5,8 +5,8 @@ data class UserDetailsModel(
     val username: String,
     val avatarUrl: String,
     val htmlUrl: String,
-    val follower: Int,
-    val following: Int,
+    val followers: Int,
+    val followings: Int,
     val location: String,
     val blog: String
 )
