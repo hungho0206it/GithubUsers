@@ -41,9 +41,9 @@ _Exact versions are centralised in **`libs.versions.toml`**._
 ## 🗺 Architecture
 ```text
 presentation (:app)  <------->  domain (:domain)  <-------->  data (:data)
-     | ViewBinding              | UseCases                   | RepositoryImpl
+     | UI View                  | UseCases                   | RepositoryImpl
      | ViewModel                | Models                     | Retrofit, Room
-     | PagingData<UIModel>      | Repository                 | RemoteMediator
+     | Aoolication              | Repository                 | RemoteMediator
 ```
 * **Unidirectional data‑flow**  
   `UI → ViewModel intents → UseCases → Repository → DB/Net → ViewModel state → UI`
@@ -65,7 +65,7 @@ The project keeps sensitive strings – the SQLCipher pass‑phrase and an optio
 data/
 └── src/main
     ├── cpp/
-    │   ├── secret_manager.cpp # this file is added in email if not found, please direct me
+    │   ├── secret_manager.cpp # This file is attached to the email. If you can’t find it, please let me know.
     │   └── CMakeLists.txt
     └── /com/hungho/data/helper/SecretHelper.kt
 ```
@@ -84,4 +84,7 @@ HTML reports: `app/build/reports/kover/html/index.html`
 ## 📸 Screenshots
 | List | User Detail |
 |------|-----------------|
-| ![Screenshot_1746950865](https://github.com/user-attachments/assets/4af631ec-3eb6-49a2-9c19-c9e9edecfc9c) | ![Screenshot_1746950867](https://github.com/user-attachments/assets/862f2262-b336-4b56-a36a-84acf462aa8f)
+| Light Mode | Light Mode | 
+|![Screenshot_1746950865](https://github.com/user-attachments/assets/4af631ec-3eb6-49a2-9c19-c9e9edecfc9c) | ![Screenshot_1746950867](https://github.com/user-attachments/assets/862f2262-b336-4b56-a36a-84acf462aa8f) |
+| Dark Mode | Dark Mode |
+|![Screenshot_1746971660](https://github.com/user-attachments/assets/cf3aa7cb-41fe-4d82-98ea-a97032477fa4) | ![Screenshot_1746971662](https://github.com/user-attachments/assets/a4ceffc3-6f21-429e-9376-1a65cfd81219) |
