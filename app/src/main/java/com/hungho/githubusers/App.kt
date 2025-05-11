@@ -1,11 +1,7 @@
 package com.hungho.githubusers
 
 import android.app.Application
-import com.hungho.data.di.dispatcherModule
-import com.hungho.data.di.helperModule
-import com.hungho.data.di.localModule
-import com.hungho.data.di.remoteModule
-import com.hungho.data.di.repositoryModule
+import com.hungho.data.di.dataModules
 import com.hungho.githubusers.di.useCaseModule
 import com.hungho.githubusers.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -28,11 +24,7 @@ class App : Application() {
             androidContext(this@App)
             modules(
                 listOf(
-                    dispatcherModule,
-                    helperModule,
-                    localModule,
-                    remoteModule,
-                    repositoryModule,
+                    dataModules,
                     useCaseModule,
                     viewModelModule
                 )

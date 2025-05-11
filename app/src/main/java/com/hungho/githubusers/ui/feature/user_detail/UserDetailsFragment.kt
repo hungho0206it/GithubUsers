@@ -13,7 +13,7 @@ import com.hungho.githubusers.ui.utils.extension.setOnSingleClickListener
 import com.hungho.githubusers.ui.utils.extension.visibleOrGone
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding, UserDetailsViewModel>() {
+internal class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding, UserDetailsViewModel>() {
     override val viewModel: UserDetailsViewModel by viewModel()
 
     private val username: String by lazy {

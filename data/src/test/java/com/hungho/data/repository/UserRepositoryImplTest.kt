@@ -26,7 +26,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-class UserRepositoryImplTest {
+internal class UserRepositoryImplTest {
     private lateinit var userServices: UserServices
     private lateinit var database: AppDatabase
     private lateinit var appPreferences: AppPreferences

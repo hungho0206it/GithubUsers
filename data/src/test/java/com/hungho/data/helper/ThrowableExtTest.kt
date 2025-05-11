@@ -7,8 +7,7 @@ import io.mockk.every
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.json.JSONException
 import org.junit.Test
 import retrofit2.HttpException
@@ -19,7 +18,7 @@ class ThrowableExtTest {
     @Test
     fun `HttpException with 401 returns UnauthorizedFailure`() {
         // Given
-        val response = Response.error<String>(401, ResponseBody.create("application/json".toMediaType(), ""))
+        val response = Response.error<String>(401, "Unauthorized".toResponseBody())
         val exception = HttpException(response)
 
         val result = exception.toFailure()
@@ -30,7 +29,7 @@ class ThrowableExtTest {
     @Test
     fun `HttpException with non-401 and error body returns ApiFailure`() {
         // Given
-        val responseBody = ResponseBody.create("application/json".toMediaType(), "Some error")
+        val responseBody = "Some error".toResponseBody()
         val response = Response.error<String>(500, responseBody)
 
         val exception = HttpException(response)

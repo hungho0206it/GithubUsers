@@ -11,7 +11,7 @@ import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 
 @RunWith(RobolectricTestRunner::class)
-class EncryptedPrefsHelperTest {
+internal class EncryptedPrefsHelperTest {
     @Test
     fun `encrypt and decrypt returns original value`() {
         // Given

@@ -18,7 +18,7 @@ import org.robolectric.RobolectricTestRunner
 import java.io.IOException
 
 @RunWith(RobolectricTestRunner::class)
-class UserDaoTest {
+internal class UserDaoTest {
 
     private lateinit var roomDatabase: AppDatabase
     private lateinit var userDao: UserDao

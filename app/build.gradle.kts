@@ -63,7 +63,7 @@ android {
                         "*.*Activity*",
                         "*.*Database*",
                         "*.*Database_Impl*",
-                        "*.*Services*",
+                        "*.retrofit.*Services*",
                         "*.App",
                         "*.BuildFlavor",
                         "*.SecretHelper",

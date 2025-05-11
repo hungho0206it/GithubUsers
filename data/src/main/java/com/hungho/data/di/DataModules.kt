@@ -11,8 +11,8 @@ import com.hungho.data.local.database.AppDatabase
 import com.hungho.data.local.storage.AppPreferences
 import com.hungho.data.local.storage.AppPreferencesImpl
 import com.hungho.data.provider.DispatcherProviderImpl
-import com.hungho.data.remote.retrofit.helper.HeaderInterceptor
-import com.hungho.data.remote.retrofit.helper.NetworkHelper
+import com.hungho.data.remote.retrofit.helper.NetworkBuilder
+import com.hungho.data.remote.retrofit.interceptor.HeaderInterceptor
 import com.hungho.data.repository.UserRepositoryImpl
 import com.hungho.domain.provider.DispatcherProvider
 import com.hungho.domain.provider.EncryptedProvider
@@ -23,11 +23,15 @@ import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
-val dispatcherModule = module {
+internal val dispatcherModule = module {
     singleOf(::DispatcherProviderImpl) { bind<DispatcherProvider>() }
 }
 
-val helperModule = module {
+internal val repositoryModule = module {
+    singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
+}
+
+internal val helperModule = module {
     single {
         FlavorHelper(BuildFlavor)
     }
@@ -36,21 +40,21 @@ val helperModule = module {
     singleOf(::EncryptedProviderPrefsHelper) { bind<EncryptedProvider>() }
 }
 
-val localModule = module {
+internal val localModule = module {
     singleOf(AppDatabase::getInstance)
     single<AppPreferences> {
         AppPreferencesImpl(androidContext(), get(), get())
     }
 }
 
-val remoteModule = module {
+internal val remoteModule = module {
     singleOf(::HeaderInterceptor)
     single {
-        NetworkHelper.buildOkkHttpClient(get(), BuildConfig.DEBUG)
+        NetworkBuilder.buildOkkHttpClient(get(), BuildConfig.DEBUG)
     }
-    singleOf(NetworkHelper::buildService)
+    singleOf(NetworkBuilder::buildService)
 }
 
-val repositoryModule = module {
-    singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
+val dataModules = module {
+    includes(dispatcherModule, helperModule, localModule, remoteModule, repositoryModule)
 }

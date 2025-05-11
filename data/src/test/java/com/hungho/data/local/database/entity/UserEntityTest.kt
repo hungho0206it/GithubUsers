@@ -3,7 +3,7 @@ package com.hungho.data.local.database.entity
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 
-class UserEntityTest {
+internal class UserEntityTest {
 
     @Test
     fun `toUserModel converts UserEntity to UserModel`() {

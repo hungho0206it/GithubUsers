@@ -8,7 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.hungho.githubusers.R
 
-object ImageLoader {
+internal object ImageLoader {
 
     // Load an image into ImageView with full options.
     fun load(

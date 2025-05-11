@@ -3,7 +3,7 @@ package com.hungho.data.remote.response
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 
-class UserDetailsResponseTest {
+internal class UserDetailsResponseTest {
 
     @Test
     fun `toUserDetailsModel converts UserDetailsResponse to UserDetailsModel`() {

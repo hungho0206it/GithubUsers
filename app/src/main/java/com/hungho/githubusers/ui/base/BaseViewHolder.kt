@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.hungho.githubusers.ui.utils.extension.setOnSingleClickListener
 
-abstract class BaseViewHolder<Item>(
+internal abstract class BaseViewHolder<Item>(
     itemView: View,
     onItemClickListener: ((Item) -> Unit)? = null,
 ) : RecyclerView.ViewHolder(itemView) {

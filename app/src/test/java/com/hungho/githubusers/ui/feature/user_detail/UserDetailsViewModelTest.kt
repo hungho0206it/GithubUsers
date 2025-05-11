@@ -26,7 +26,7 @@ import org.junit.Test
 import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class UserDetailsViewModelTest {
+internal class UserDetailsViewModelTest {
     private val testDispatcher = UnconfinedTestDispatcher()
     private lateinit var getUserDetailsUseCase: GetUserDetailsUseCase
     private lateinit var dispatcherProvider: DispatcherProvider

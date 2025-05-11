@@ -8,7 +8,7 @@ import com.hungho.githubusers.R
 import com.hungho.githubusers.databinding.ViewAppToolbarBinding
 import com.hungho.githubusers.ui.utils.extension.visibleOrInvisible
 
-class AppToolbar @JvmOverloads constructor(
+internal class AppToolbar @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0

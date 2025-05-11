@@ -10,7 +10,7 @@ import com.hungho.githubusers.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 
-class HomeViewModel(
+internal class HomeViewModel(
     getUserPagingSourceUseCase: GetUserPagingSourceUseCase,
     dispatcherProvider: DispatcherProvider,
 ) : BaseViewModel() {

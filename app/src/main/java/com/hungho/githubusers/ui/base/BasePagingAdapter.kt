@@ -6,7 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BasePagingAdapter<Item : Any, VH : RecyclerView.ViewHolder>(diffUtil: DiffUtil.ItemCallback<Item>) :
+internal abstract class BasePagingAdapter<Item : Any, VH : RecyclerView.ViewHolder>(diffUtil: DiffUtil.ItemCallback<Item>) :
     PagingDataAdapter<Item, VH>(diffUtil) {
 
     abstract fun onCreateViewHolder(

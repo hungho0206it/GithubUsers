@@ -12,7 +12,7 @@ import androidx.core.view.updatePadding
 import androidx.viewbinding.ViewBinding
 import com.hungho.githubusers.R
 
-abstract class BaseFullScreenDialogFragment<VB : ViewBinding> : BaseDialogFragment<VB>() {
+internal abstract class BaseFullScreenDialogFragment<VB : ViewBinding> : BaseDialogFragment<VB>() {
 
     open fun onFullscreenHandling(top: Int, bottom: Int) {}
 

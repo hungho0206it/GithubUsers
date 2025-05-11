@@ -25,7 +25,7 @@ import org.junit.Before
 import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class HomeViewModelTest {
+internal class HomeViewModelTest {
     private val testDispatcher = UnconfinedTestDispatcher()
     private lateinit var getUserPagingSourceUseCase: GetUserPagingSourceUseCase
     private lateinit var dispatcherProvider: DispatcherProvider

@@ -4,10 +4,8 @@ import io.mockk.every
 import io.mockk.mockk
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 
-class FlavorHelperTest {
+internal class FlavorHelperTest {
     @Test
     fun `isDevMode returns true when flavor is dev`() {
         // Given
