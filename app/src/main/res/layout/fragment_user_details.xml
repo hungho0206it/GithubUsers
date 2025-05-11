@@ -51,7 +51,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/black"
+                android:textColor="@color/colorTextPrimary"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +64,7 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/anti_flash_white"
+                android:background="@color/colorDivider"
                 app:layout_constraintEnd_toEndOf="@id/tvUsername"
                 app:layout_constraintStart_toStartOf="@id/tvUsername"
                 app:layout_constraintTop_toBottomOf="@id/tvUsername" />
@@ -73,8 +73,8 @@
                 android:id="@+id/tvUserLocation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorTextSecondary"
                 android:layout_marginStart="4dp"
-                android:textColorLink="@color/dark_saturated_blue"
                 app:layout_constraintBottom_toBottomOf="@id/ivLocation"
                 app:layout_constraintEnd_toEndOf="@id/tvUsername"
                 app:layout_constraintStart_toEndOf="@id/ivLocation"
@@ -86,6 +86,7 @@
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:layout_marginTop="10dp"
+                app:tint="@color/colorTextSecondary"
                 app:layout_constraintEnd_toStartOf="@id/tvUserLocation"
                 app:layout_constraintStart_toStartOf="@id/tvUsername"
                 app:layout_constraintTop_toBottomOf="@id/divider"
@@ -124,7 +125,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/colorTextPrimary"
             tools:text="100+" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -134,7 +135,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/colorTextPrimary"
             tools:text="Follower" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -161,7 +162,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/colorTextPrimary"
             tools:text="10" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -171,7 +172,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/colorTextPrimary"
             tools:text="Following" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -181,7 +182,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/blog"
-        android:textColor="@color/black"
+        android:textColor="@color/colorTextPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/cardInfo"
@@ -193,7 +194,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:autoLink="all"
-        android:textColorLink="@color/dark_saturated_blue"
+        android:textColorLink="@color/colorTextLink"
         app:layout_constraintStart_toStartOf="@id/cardInfo"
         app:layout_constraintTop_toBottomOf="@id/tvBlog"
         tools:text="https://linkedin.com" />
