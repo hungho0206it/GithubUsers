@@ -13,6 +13,7 @@ internal class HeaderInterceptor(private val secretHelper: ISecretHelper) : Inte
             .header("Content-Type", "application/json")
             .method(originalRequest.method, originalRequest.body)
 
+        // Add Authorization header to avoid rate limit error when using Github API
         val token = secretHelper.getAccessToken()
         modifiedRequest.addHeader(
             "Authorization",

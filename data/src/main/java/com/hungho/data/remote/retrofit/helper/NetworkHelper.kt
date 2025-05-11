@@ -9,6 +9,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 internal object NetworkHelper {
+
+    // Build OkHttp client with logging interceptor and header interceptor
     fun buildOkkHttpClient(headerInterceptor: HeaderInterceptor, isDebug: Boolean): OkHttpClient {
         val loggerInterceptor = HttpLoggingInterceptor()
         if (isDebug) {
@@ -25,6 +27,7 @@ internal object NetworkHelper {
             .build()
     }
 
+    // Build UserServices with Retrofit
     fun buildService(okHttpClient: OkHttpClient): UserServices {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)

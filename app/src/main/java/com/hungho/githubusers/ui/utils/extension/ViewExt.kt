@@ -5,12 +5,14 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.hungho.githubusers.ui.utils.custom.OnSingleClickListener
 
+// Avoid multiple clicks on a view
 fun View.setOnSingleClickListener(onClickListener: View.OnClickListener?) {
     onClickListener?.also {
         setOnClickListener(OnSingleClickListener(it))
     } ?: setOnClickListener(null)
 }
 
+// Avoid multiple clicks on a view
 fun View.setOnSingleClickListener(onClickListener: (View) -> Unit) {
     setOnSingleClickListener(View.OnClickListener { view ->
         onClickListener(view)
