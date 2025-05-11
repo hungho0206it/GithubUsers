@@ -174,6 +174,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
 
     open fun onCloseErrorMessage() = Unit
 
+    // Show error message dialog
     open fun onShowErrorMessage(message: String) {
         AlertDialog.Builder(context)
             .setTitle(getString(R.string.error))
@@ -194,6 +195,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
         mainActivity?.onLoading(false)
     }
 
+    // check permission and request permission
     fun runWithPermission(
         permission: String,
         rationaleMessage: String,

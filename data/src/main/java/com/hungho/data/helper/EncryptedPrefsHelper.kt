@@ -18,6 +18,7 @@ interface IEncrypted {
 }
 
 class AndroidKeyStoreProvider : KeyProvider {
+    // Generate a secret key using the Android Keystore.
     override fun getSecretKey(): SecretKey {
         val keyGen =
             KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
@@ -38,6 +39,8 @@ class AndroidKeyStoreProvider : KeyProvider {
 }
 
 class EncryptedPrefsHelper(private val keyProvider: KeyProvider) : IEncrypted {
+
+    // Encrypt string value using AES then convert to Base64
     override fun encrypt(value: String): String {
         val cipher = Cipher.getInstance(CRYPTO_TRANSFORMATION)
         cipher.init(Cipher.ENCRYPT_MODE, keyProvider.getSecretKey())
@@ -47,6 +50,7 @@ class EncryptedPrefsHelper(private val keyProvider: KeyProvider) : IEncrypted {
         return Base64.encodeToString(combined, Base64.DEFAULT)
     }
 
+    // Decrypt Base64 decoded string using AES
     override fun decrypt(encryptedBase64: String): String {
         val combined = Base64.decode(encryptedBase64, Base64.DEFAULT)
         val iv = combined.copyOfRange(0, 12)
