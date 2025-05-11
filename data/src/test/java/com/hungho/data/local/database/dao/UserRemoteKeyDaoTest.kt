@@ -6,6 +6,8 @@ import androidx.test.core.app.ApplicationProvider
 import com.hungho.data.local.database.AppDatabase
 import com.hungho.data.local.database.entity.UserRemoteKeyEntity
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertNotNull
+import junit.framework.TestCase.assertNull
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
@@ -37,7 +39,7 @@ class UserRemoteKeyDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun insertAll() = runTest {
+    fun `insertAll with nextKey is not null and prevKey is null`() = runTest {
         // Given
         val userRemoteKeyEntities = (1..10).mockUserRemoteKeyEntities()
 
@@ -47,6 +49,30 @@ class UserRemoteKeyDaoTest {
         // Then
         val result = getResult(userRemoteKeyEntities.first().userId)
         assertEquals(result, userRemoteKeyEntities.first())
+        assertNull(userRemoteKeyEntities.first().prevKey)
+        assertNotNull(userRemoteKeyEntities.first().nextKey)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun `insertAll with nextKey is null and prevKey is not null`() = runTest {
+        // Given
+        val userRemoteKeyEntities = (1..10).map {
+            UserRemoteKeyEntity(
+                userId = it,
+                prevKey = it,
+                nextKey = null
+            )
+        }
+
+        // When
+        userRemoteKeyDao.insertAll(userRemoteKeyEntities)
+
+        // Then
+        val result = getResult(userRemoteKeyEntities.first().userId)
+        assertEquals(result, userRemoteKeyEntities.first())
+        assertNull(userRemoteKeyEntities.first().nextKey)
+        assertNotNull(userRemoteKeyEntities.first().prevKey)
     }
 
     @Test

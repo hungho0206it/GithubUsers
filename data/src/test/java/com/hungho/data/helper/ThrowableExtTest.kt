@@ -2,6 +2,8 @@ package com.hungho.data.helper
 
 import com.google.gson.JsonParseException
 import com.hungho.data.error.Failure
+import io.mockk.every
+import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import okhttp3.MediaType.Companion.toMediaType
@@ -29,6 +31,7 @@ class ThrowableExtTest {
         // Given
         val responseBody = ResponseBody.create("application/json".toMediaType(), "Some error")
         val response = Response.error<String>(500, responseBody)
+
         val exception = HttpException(response)
 
         // When
@@ -37,6 +40,25 @@ class ThrowableExtTest {
         // Then
         assertTrue(result is Failure.ApiFailure)
         assertEquals(500, (result as Failure.ApiFailure).code)
+    }
+
+    @Test
+    fun `HttpException with non-401 and error body is null returns ApiFailure`() {
+        // Given
+        val response = mockk<Response<Any>>()
+        every { response.code() } returns 500
+        every { response.message() } returns "Internal Server Error"
+        every { response.errorBody() } returns null
+
+        val exception = HttpException(response)
+
+        // When
+        val result = exception.toFailure()
+
+        // Then
+        assertTrue(result is Failure.ApiFailure)
+        assertEquals(500, (result as Failure.ApiFailure).code)
+        assertEquals("Internal Server Error", result.errorMessage)
     }
 
     @Test
@@ -49,6 +71,20 @@ class ThrowableExtTest {
 
         // Then
         assertTrue(result is Failure.NetworkFailure)
+        assertEquals("Connection lost", (result as? Failure.NetworkFailure)?.errorMessage)
+    }
+
+    @Test
+    fun `IOException with message is null returns NetworkFailure`() {
+        // Given
+        val exception = IOException()
+
+        // When
+        val result = exception.toFailure()
+
+        // Then
+        assertTrue(result is Failure.NetworkFailure)
+        assertEquals("Network error", (result as? Failure.NetworkFailure)?.errorMessage)
     }
 
     @Test
