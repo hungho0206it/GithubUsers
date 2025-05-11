@@ -68,9 +68,9 @@ android {
                         "*.BuildFlavor",
                         "*.SecretHelper",
                         "*.AndroidKeyStoreProvider",
+                        "*.DispatcherProviderImpl",
                     )
                     packages(
-                        "com.hungho.*.di.*",
                         "com.hungho.githubusers.databinding",
                         "com.hungho.githubusers.ui.utils",
                         "com.hungho.githubusers.ui.base",
