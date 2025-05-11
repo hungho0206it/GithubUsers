@@ -26,6 +26,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         UserPagingAdapter(::handleOnUserItemClick, ::handleOnUserHtmlUrlClick)
     }
 
+    private var isRefreshing: Boolean = false
+
+
     override fun onCreateViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -41,6 +44,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun initViewModel() {
         lifecycleScope.launch {
             viewModel.userPagingSource.collectLatest {
+                isRefreshing = true
                 userPagingAdapter.submitData(it)
             }
         }
@@ -49,17 +53,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     private fun initRecyclerView() {
         viewBinding?.rvUsers?.apply {
             adapter = userPagingAdapter.withLoadStateFooter(FooterAdapter())
-
             userPagingAdapter.addLoadStateListener { loadState ->
-                val refreshError = loadState.refresh as? LoadState.Error
-                val appendError = loadState.append as? LoadState.Error
-                when {
-                    refreshError != null -> {
-                        onError(refreshError.error.toFailure())
-                    }
+                if (isRefreshing && loadState.source.refresh is LoadState.NotLoading) {
+                    val refreshError = loadState.refresh as? LoadState.Error
+                    val appendError = loadState.append as? LoadState.Error
+                    val failure = when {
+                        refreshError != null -> {
+                            refreshError.error.toFailure()
+                        }
 
-                    appendError != null -> {
-                        onError(appendError.error.toFailure())
+                        appendError != null -> {
+                            appendError.error.toFailure()
+                        }
+
+                        else -> null
+                    }
+                    if (failure != null) {
+                        onError(failure)
+                        isRefreshing = false
                     }
                 }
             }
