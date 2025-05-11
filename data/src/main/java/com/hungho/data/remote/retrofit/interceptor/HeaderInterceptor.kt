@@ -1,4 +1,4 @@
-package com.hungho.data.remote.retrofit.helper
+package com.hungho.data.remote.retrofit.interceptor
 
 import com.hungho.data.helper.ISecretHelper
 import okhttp3.Interceptor

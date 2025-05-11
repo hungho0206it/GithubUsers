@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
 // Only one observer will be notified of changes.
-class SingleLiveData<T> : MutableLiveData<T>() {
+internal class SingleLiveData<T> : MutableLiveData<T>() {
 
     private val pending = AtomicBoolean(false)
 

@@ -12,7 +12,7 @@ import com.hungho.githubusers.ui.dialog.loading.LoadingDialogFragment
 import com.hungho.githubusers.ui.utils.extension.dismissIfAdded
 import com.hungho.githubusers.ui.utils.extension.showIfNotExist
 
-class MainActivity : AppCompatActivity() {
+internal class MainActivity : AppCompatActivity() {
     private var loadingDialogFragment: LoadingDialogFragment? = null
 
     private var binding: ActivityMainBinding? = null

@@ -10,7 +10,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
-class GetUserPagingSourceUseCaseTest {
+internal class GetUserPagingSourceUseCaseTest {
     private lateinit var userRepository: UserRepository
     private lateinit var getUserPagingSourceUseCase: GetUserPagingSourceUseCase
 

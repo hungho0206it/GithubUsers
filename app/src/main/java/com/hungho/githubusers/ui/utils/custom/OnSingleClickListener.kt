@@ -4,7 +4,7 @@ import android.view.View
 import java.util.concurrent.atomic.AtomicBoolean
 
 // Avoid multiple clicks on a view
-class OnSingleClickListener(
+internal class OnSingleClickListener(
     private val onClickListener: View.OnClickListener,
     private val intervalMs: Long = 250L
 ) : View.OnClickListener {

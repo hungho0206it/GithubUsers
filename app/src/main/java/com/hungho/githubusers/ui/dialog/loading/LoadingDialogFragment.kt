@@ -7,7 +7,7 @@ import com.hungho.githubusers.R
 import com.hungho.githubusers.databinding.DialogLoadingBinding
 import com.hungho.githubusers.ui.base.BaseFullScreenDialogFragment
 
-class LoadingDialogFragment : BaseFullScreenDialogFragment<DialogLoadingBinding>() {
+internal class LoadingDialogFragment : BaseFullScreenDialogFragment<DialogLoadingBinding>() {
 
     override fun onCreateViewBinding(
         inflater: LayoutInflater,

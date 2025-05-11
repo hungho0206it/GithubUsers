@@ -17,7 +17,7 @@ import org.robolectric.RobolectricTestRunner
 import java.io.IOException
 
 @RunWith(RobolectricTestRunner::class)
-class UserRemoteKeyDaoTest {
+internal class UserRemoteKeyDaoTest {
 
     private lateinit var roomDatabase: AppDatabase
     private lateinit var userRemoteKeyDao: UserRemoteKeyDao

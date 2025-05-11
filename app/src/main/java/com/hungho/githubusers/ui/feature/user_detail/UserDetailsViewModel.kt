@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class UserDetailsViewModel(
+internal class UserDetailsViewModel(
     private val getUserDetailsUseCase: GetUserDetailsUseCase,
     private val dispatcherProvider: DispatcherProvider
 ) : BaseViewModel() {

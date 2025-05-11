@@ -9,7 +9,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
-class GetUserDetailsUseCaseTest {
+internal class GetUserDetailsUseCaseTest {
     private lateinit var userRepository: UserRepository
     private lateinit var getUserDetailsUseCase: GetUserDetailsUseCase
 

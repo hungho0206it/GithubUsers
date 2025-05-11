@@ -2,13 +2,14 @@ package com.hungho.data.remote.retrofit.helper
 
 import com.hungho.data.BuildConfig
 import com.hungho.data.remote.retrofit.UserServices
+import com.hungho.data.remote.retrofit.interceptor.HeaderInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-internal object NetworkHelper {
+internal object NetworkBuilder {
 
     // Build OkHttp client with logging interceptor and header interceptor
     fun buildOkkHttpClient(headerInterceptor: HeaderInterceptor, isDebug: Boolean): OkHttpClient {

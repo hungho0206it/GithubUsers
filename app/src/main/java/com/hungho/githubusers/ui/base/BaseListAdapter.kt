@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 @Suppress("UNCHECKED_CAST")
-abstract class BaseListAdapter<Item>(
+internal abstract class BaseListAdapter<Item>(
     diffCallback: DiffUtil.ItemCallback<Item>
 ) : ListAdapter<Item, RecyclerView.ViewHolder>(diffCallback) {
 

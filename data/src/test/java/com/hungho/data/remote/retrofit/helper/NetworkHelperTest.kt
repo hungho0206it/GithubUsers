@@ -1,5 +1,6 @@
 package com.hungho.data.remote.retrofit.helper
 
+import com.hungho.data.remote.retrofit.interceptor.HeaderInterceptor
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
@@ -9,7 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.junit.Before
 import org.junit.Test
 
-class NetworkHelperTest {
+internal class NetworkHelperTest {
 
     private lateinit var headerInterceptor: HeaderInterceptor
 
@@ -24,7 +25,7 @@ class NetworkHelperTest {
         val expectedLevel = HttpLoggingInterceptor.Level.BODY
 
         // When
-        val client = NetworkHelper.buildOkkHttpClient(headerInterceptor, true)
+        val client = NetworkBuilder.buildOkkHttpClient(headerInterceptor, true)
 
         // Then
         val interceptors = client.interceptors
@@ -42,7 +43,7 @@ class NetworkHelperTest {
         val expectedLevel = HttpLoggingInterceptor.Level.NONE
 
         // When
-        val client = NetworkHelper.buildOkkHttpClient(headerInterceptor, false)
+        val client = NetworkBuilder.buildOkkHttpClient(headerInterceptor, false)
 
         // Then
         val interceptors = client.interceptors
@@ -57,7 +58,7 @@ class NetworkHelperTest {
     @Test
     fun `buildService should return valid retrofit service`() {
         val client = OkHttpClient.Builder().build()
-        val service = NetworkHelper.buildService(client)
+        val service = NetworkBuilder.buildService(client)
 
         assertNotNull(service)
     }

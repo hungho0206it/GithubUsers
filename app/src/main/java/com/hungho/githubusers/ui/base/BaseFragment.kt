@@ -21,7 +21,7 @@ import com.hungho.githubusers.ui.feature.MainActivity
 import com.hungho.githubusers.ui.utils.extension.dismissKeyboard
 import timber.log.Timber
 
-abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
+internal abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
 
     private val mainActivity by lazy { activity as? MainActivity }
 

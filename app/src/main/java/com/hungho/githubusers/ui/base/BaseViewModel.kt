@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hungho.githubusers.ui.utils.custom.SingleLiveData
 
-abstract class BaseViewModel : ViewModel() {
+internal abstract class BaseViewModel : ViewModel() {
     val error = SingleLiveData<Throwable>()
     val loading = MutableLiveData<Boolean>()
 

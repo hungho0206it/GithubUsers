@@ -31,7 +31,7 @@ import org.junit.Test
 import java.util.concurrent.TimeUnit
 
 @ExperimentalPagingApi
-class UserRemoteMediatorTest {
+internal class UserRemoteMediatorTest {
     private lateinit var userServices: UserServices
     private lateinit var database: AppDatabase
     private lateinit var appPreferences: AppPreferences

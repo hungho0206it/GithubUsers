@@ -5,14 +5,14 @@ import com.hungho.domain.provider.DispatcherProvider
 import com.hungho.domain.provider.EncryptedProvider
 import kotlinx.coroutines.withContext
 
-interface AppPreferences {
+internal interface AppPreferences {
     suspend fun <T> saveValue(shareKey: AppPreferenceKey, value: T)
     fun <T> getValue(shareKey: AppPreferenceKey, default: T): T
     suspend fun saveValueEncrypted(shareKey: AppPreferenceKey, value: String)
     fun getValueEncrypted(shareKey: AppPreferenceKey): String?
 }
 
-class AppPreferencesImpl(
+internal class AppPreferencesImpl(
     context: Context,
     private val encryptedPrefsHelper: EncryptedProvider,
     private val dispatcherProvider: DispatcherProvider
@@ -94,4 +94,4 @@ class AppPreferencesImpl(
     }
 }
 
-typealias AppPreferenceKey = AppPreferencesImpl.AppPrefKey
+internal typealias AppPreferenceKey = AppPreferencesImpl.AppPrefKey

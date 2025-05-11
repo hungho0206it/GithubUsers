@@ -10,7 +10,7 @@ import com.hungho.githubusers.ui.base.BaseViewHolder
 import com.hungho.githubusers.ui.utils.custom.ImageLoader
 import com.hungho.githubusers.ui.utils.extension.setOnSingleClickListener
 
-class UserPagingAdapter(
+internal class UserPagingAdapter(
     private val onItemClick: (UserModel) -> Unit,
     private val onHtmlUrlClick: (String) -> Unit
 ) : BasePagingAdapter<UserModel, UserPagingAdapter.UserViewHolder>(object :

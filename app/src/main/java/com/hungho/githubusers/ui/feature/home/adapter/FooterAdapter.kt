@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hungho.githubusers.databinding.ItemFooterBinding
 import com.hungho.githubusers.ui.utils.extension.visibleOrGone
 
-class FooterAdapter : LoadStateAdapter<FooterAdapter.FooterViewHolder>() {
+internal class FooterAdapter : LoadStateAdapter<FooterAdapter.FooterViewHolder>() {
     override fun onBindViewHolder(
         holder: FooterViewHolder,
         loadState: LoadState

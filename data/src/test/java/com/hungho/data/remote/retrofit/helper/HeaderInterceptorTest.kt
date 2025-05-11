@@ -2,6 +2,7 @@ package com.hungho.data.remote.retrofit.helper
 
 import com.hungho.data.helper.SecretHelper
 import com.hungho.data.remote.retrofit.UserServices
+import com.hungho.data.remote.retrofit.interceptor.HeaderInterceptor
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
@@ -13,7 +14,7 @@ import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class HeaderInterceptorTest {
+internal class HeaderInterceptorTest {
     private lateinit var mockWebServer: MockWebServer
     private lateinit var okHttpClient: OkHttpClient
     private lateinit var userService: UserServices
