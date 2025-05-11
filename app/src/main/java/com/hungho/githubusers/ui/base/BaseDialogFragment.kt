@@ -9,14 +9,9 @@ import androidx.viewbinding.ViewBinding
 import com.hungho.githubusers.R
 
 internal abstract class BaseDialogFragment<VB : ViewBinding> : DialogFragment() {
-
-    open fun initViews() = Unit
-
-    open fun initObservables() = Unit
+    var viewBinding: VB? = null
 
     abstract fun onCreateViewBinding(inflater: LayoutInflater, container: ViewGroup?): VB
-
-    var viewBinding: VB? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,4 +32,8 @@ internal abstract class BaseDialogFragment<VB : ViewBinding> : DialogFragment() 
         initViews()
         initObservables()
     }
+
+    open fun initViews() = Unit
+
+    open fun initObservables() = Unit
 }

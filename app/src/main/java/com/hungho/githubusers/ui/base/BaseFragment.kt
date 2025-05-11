@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -15,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.hungho.domain.model.error.Failure
 import com.hungho.githubusers.R
 import com.hungho.githubusers.ui.feature.MainActivity
@@ -23,34 +21,21 @@ import com.hungho.githubusers.ui.utils.extension.dismissKeyboard
 import timber.log.Timber
 
 internal abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
+    abstract val viewModel: VM?
 
     private val mainActivity by lazy { activity as? MainActivity }
 
-    abstract val viewModel: VM?
     private val baseViewModel by lazy { viewModel as? BaseViewModel }
+
+    open var isFullScreen = false
+
+    var viewBinding: VB? = null
 
     protected abstract fun onCreateViewBinding(inflater: LayoutInflater, container: ViewGroup?): VB
 
     protected abstract fun initViews()
 
     protected abstract fun initViewModel()
-
-    open fun onBackPressed(): Boolean = true
-
-    open var isFullScreen = false
-
-    var viewBinding: VB? = null
-
-    open fun onFullscreenHandling(top: Int, bottom: Int) {}
-
-    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            if (onBackPressed()) {
-                isEnabled = false
-                findNavController().navigateUp()
-            }
-        }
-    }
 
     override fun onAttach(context: Context) {
         Timber.tag(LIFECYCLE_TAG).i("${this::class.simpleName} onAttach")
@@ -62,21 +47,6 @@ internal abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragmen
         super.onCreate(savedInstanceState)
         addBackPressedCallback()
         observeBaseViewModel()
-    }
-
-    private fun observeBaseViewModel() {
-        baseViewModel?.loading?.observe(this) { isLoading ->
-            onLoading(isLoading = isLoading)
-        }
-        baseViewModel?.error?.observe(this) { throwable ->
-            if (throwable is Failure) {
-                onError(throwable)
-            }
-        }
-    }
-
-    private fun addBackPressedCallback() {
-        activity?.onBackPressedDispatcher?.addCallback(this, onBackPressedCallback)
     }
 
     override fun onCreateView(
@@ -95,31 +65,6 @@ internal abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragmen
         buildFullscreen()
         initViews()
         initViewModel()
-    }
-
-    private fun buildFullscreen() {
-        viewBinding?.root?.let {
-            ViewCompat.setOnApplyWindowInsetsListener(it) { view, windowInsets ->
-                val imeVisible = windowInsets.isVisible(WindowInsetsCompat.Type.ime())
-                val imeHeight = windowInsets.getInsets(WindowInsetsCompat.Type.ime()).bottom
-                val statusBar = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-                val top = statusBar.top
-                val bottom = if (imeVisible) imeHeight else statusBar.bottom
-                if (isFullScreen) {
-                    view.updatePadding(
-                        top = 0,
-                        bottom = 0,
-                    )
-                    onFullscreenHandling(top, bottom)
-                } else {
-                    view.updatePadding(
-                        top = top,
-                        bottom = bottom,
-                    )
-                }
-                WindowInsetsCompat.CONSUMED
-            }
-        }
     }
 
     override fun onStart() {
@@ -159,6 +104,59 @@ internal abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragmen
         super.onDetach()
     }
 
+    private fun addBackPressedCallback() {
+        activity?.onBackPressedDispatcher?.addCallback(this, onBackPressedCallback)
+    }
+
+    private fun buildFullscreen() {
+        viewBinding?.root?.let {
+            ViewCompat.setOnApplyWindowInsetsListener(it) { view, windowInsets ->
+                val imeVisible = windowInsets.isVisible(WindowInsetsCompat.Type.ime())
+                val imeHeight = windowInsets.getInsets(WindowInsetsCompat.Type.ime()).bottom
+                val statusBar = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+                val top = statusBar.top
+                val bottom = if (imeVisible) imeHeight else statusBar.bottom
+                if (isFullScreen) {
+                    view.updatePadding(
+                        top = 0,
+                        bottom = 0,
+                    )
+                    onFullscreenHandling(top, bottom)
+                } else {
+                    view.updatePadding(
+                        top = top,
+                        bottom = bottom,
+                    )
+                }
+                WindowInsetsCompat.CONSUMED
+            }
+        }
+    }
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (onBackPressed()) {
+                isEnabled = false
+                findNavController().navigateUp()
+            }
+        }
+    }
+
+    private fun observeBaseViewModel() {
+        baseViewModel?.loading?.observe(this) { isLoading ->
+            onLoading(isLoading = isLoading)
+        }
+        baseViewModel?.error?.observe(this) { throwable ->
+            if (throwable is Failure) {
+                onError(throwable)
+            }
+        }
+    }
+
+    open fun onBackPressed(): Boolean = true
+
+    open fun onFullscreenHandling(top: Int, bottom: Int) {}
+
     open fun onError(failure: Failure) {
         val message = when (failure) {
             is Failure.ApiFailure -> failure.errorMessage
@@ -191,47 +189,6 @@ internal abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragmen
 
     open fun onLoading(isLoading: Boolean) {
         mainActivity?.onLoading(isLoading)
-    }
-
-    private fun dismissLoading() {
-        mainActivity?.onLoading(false)
-    }
-
-    // check permission and request permission
-    fun runWithPermission(
-        permission: String,
-        rationaleMessage: String,
-        onPermissionGranted: () -> Unit = {},
-        onPermissionDenied: () -> Unit = {}
-    ) {
-        val requestPermissionLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestPermission(),
-        ) { isGranted ->
-            if (isGranted) {
-                onPermissionGranted()
-            } else {
-                onPermissionDenied()
-            }
-        }
-
-        if (shouldShowRequestPermissionRationale(permission)) {
-            val dialogBuilder =
-                MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
-                    .setTitle(R.string.text_permission_required)
-                    .setMessage(rationaleMessage)
-                    .setPositiveButton(R.string.text_ok) { dialog, _ ->
-                        requestPermissionLauncher.launch(permission)
-                        dialog.dismiss()
-                    }
-                    .setNegativeButton(R.string.no_thanks) { dialog, _ ->
-                        dialog.dismiss()
-                    }
-
-            val dialog = dialogBuilder.create()
-            dialog.show()
-        } else {
-            requestPermissionLauncher.launch(permission)
-        }
     }
 
     companion object {

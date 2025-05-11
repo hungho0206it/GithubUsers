@@ -13,9 +13,6 @@ import androidx.viewbinding.ViewBinding
 import com.hungho.githubusers.R
 
 internal abstract class BaseFullScreenDialogFragment<VB : ViewBinding> : BaseDialogFragment<VB>() {
-
-    open fun onFullscreenHandling(top: Int, bottom: Int) {}
-
     open var isFullScreen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,4 +74,6 @@ internal abstract class BaseFullScreenDialogFragment<VB : ViewBinding> : BaseDia
             }
         }
     }
+
+    open fun onFullscreenHandling(top: Int, bottom: Int) {}
 }

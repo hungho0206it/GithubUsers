@@ -3,7 +3,9 @@ package com.hungho.githubusers.ui.feature.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.hungho.data.helper.extension.toFailure
@@ -42,10 +44,12 @@ internal class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>()
     }
 
     override fun initViewModel() {
-        lifecycleScope.launch {
-            viewModel.userPagingSource.collectLatest {
-                isRefreshing = true
-                userPagingAdapter.submitData(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.userPagingSource.collectLatest {
+                    isRefreshing = true
+                    userPagingAdapter.submitData(it)
+                }
             }
         }
     }

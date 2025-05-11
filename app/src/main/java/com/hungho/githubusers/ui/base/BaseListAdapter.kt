@@ -11,6 +11,12 @@ internal abstract class BaseListAdapter<Item>(
     diffCallback: DiffUtil.ItemCallback<Item>
 ) : ListAdapter<Item, RecyclerView.ViewHolder>(diffCallback) {
 
+    abstract fun onCreateViewHolder(
+        viewType: Int,
+        layoutInflater: LayoutInflater,
+        parent: ViewGroup
+    ): RecyclerView.ViewHolder
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return onCreateViewHolder(viewType, layoutInflater, parent)
@@ -29,10 +35,4 @@ internal abstract class BaseListAdapter<Item>(
         val bindingViewHolder = holder as? BaseViewHolder<Item>
         bindingViewHolder?.bind(getItem(position), position, payloads)
     }
-
-    abstract fun onCreateViewHolder(
-        viewType: Int,
-        layoutInflater: LayoutInflater,
-        parent: ViewGroup
-    ): RecyclerView.ViewHolder
 }

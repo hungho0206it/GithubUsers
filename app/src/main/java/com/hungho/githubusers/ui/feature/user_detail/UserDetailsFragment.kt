@@ -32,6 +32,12 @@ internal class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding, Us
             toolbar.setOnBackClickListener {
                 findNavController().navigateUp()
             }
+            tvUserLink.setOnSingleClickListener {
+                viewModel.userDetails.value?.let { userDetails ->
+                    val userLink = userDetails.blog.ifEmpty { userDetails.htmlUrl }
+                    activity?.openBrowser(userLink)
+                }
+            }
         }
     }
 
@@ -74,9 +80,6 @@ internal class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding, Us
             ImageLoader.load(ivAvatar, userDetails.avatarUrl)
             val userLink = userDetails.blog.ifEmpty { userDetails.htmlUrl }
             tvUserLink.text = userLink
-            tvUserLink.setOnSingleClickListener {
-                activity?.openBrowser(userLink)
-            }
         }
     }
 
