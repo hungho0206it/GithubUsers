@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kover)
 }
 
 android {
@@ -49,9 +50,44 @@ android {
         buildConfig = true
         viewBinding = true
     }
+
+    kover {
+        reports {
+            filters {
+                excludes {
+                    classes(
+                        "*.*BuildConfig*",
+                        "*.*Module*",
+                        "*.*Factory*",
+                        "*.*Fragment*",
+                        "*.*Activity*",
+                        "*.*Database*",
+                        "*.*Database_Impl*",
+                        "*.*Services*",
+                        "*.App",
+                        "*.BuildFlavor",
+                        "*.SecretHelper",
+                        "*.AndroidKeyStoreProvider",
+                    )
+                    packages(
+                        "com.hungho.*.di.*",
+                        "com.hungho.githubusers.databinding",
+                        "com.hungho.githubusers.ui.utils",
+                        "com.hungho.githubusers.ui.base",
+                        "com.hungho.githubusers.ui.dialog",
+                        "com.hungho.githubusers.ui.view",
+                        "com.hungho.githubusers.ui.feature.*.adapter",
+                    )
+                }
+            }
+        }
+    }
 }
 
 dependencies {
+    kover(project(":domain"))
+    kover(project(":data"))
+
     implementation(project(":data"))
     implementation(project(":domain"))
 

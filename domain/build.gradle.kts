@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kover)
 }
 
 android {
@@ -27,10 +28,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
-    }
-
-    testCoverage {
-        jacocoVersion = "0.8.1"
     }
 }
 
