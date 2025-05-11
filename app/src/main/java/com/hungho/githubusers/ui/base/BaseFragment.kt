@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.hungho.domain.model.error.Failure
@@ -46,6 +47,7 @@ internal abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragmen
         override fun handleOnBackPressed() {
             if (onBackPressed()) {
                 isEnabled = false
+                findNavController().navigateUp()
             }
         }
     }
