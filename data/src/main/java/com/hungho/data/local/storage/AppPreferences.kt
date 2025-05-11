@@ -47,7 +47,7 @@ class AppPreferencesImpl(
                     is Long -> it.getLong(key, default as Long)
                     is Boolean -> it.getBoolean(key, default as Boolean)
                     is String -> it.getString(key, default as String)
-                    is Float, Double::class -> it.getFloat(key, default as Float)
+                    is Float, is Double -> it.getFloat(key, default as Float)
                     is Set<*> -> it.getStringSet(key, null)
                     else -> default
                 }

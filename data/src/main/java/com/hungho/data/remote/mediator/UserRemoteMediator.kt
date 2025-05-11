@@ -62,17 +62,18 @@ internal class UserRemoteMediator(
                     userDao.clearAll()
                     remoteKeyDao.clearAll()
                 }
+                if (users.isNotEmpty()) {
+                    userDao.insertUsers(users)
 
-                userDao.insertUsers(users)
-
-                val keys = users.map {
-                    UserRemoteKeyEntity(
-                        userId = it.id,
-                        prevKey = null,
-                        nextKey = users.lastOrNull()?.id
-                    )
+                    val keys = users.map {
+                        UserRemoteKeyEntity(
+                            userId = it.id,
+                            prevKey = null,
+                            nextKey = users.last().id
+                        )
+                    }
+                    remoteKeyDao.insertAll(keys)
                 }
-                remoteKeyDao.insertAll(keys)
             }
 
             MediatorResult.Success(endOfPaginationReached = users.size < state.config.pageSize)
