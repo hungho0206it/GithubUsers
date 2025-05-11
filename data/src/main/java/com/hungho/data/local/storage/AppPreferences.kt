@@ -1,23 +1,22 @@
 package com.hungho.data.local.storage
 
 import android.content.Context
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import com.hungho.data.helper.IEncrypted
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
-interface IAppPreferences {
+interface AppPreferences {
     suspend fun <T> saveValue(shareKey: AppPreferenceKey, value: T)
     fun <T> getValue(shareKey: AppPreferenceKey, default: T): T
     suspend fun saveValueEncrypted(shareKey: AppPreferenceKey, value: String)
     fun getValueEncrypted(shareKey: AppPreferenceKey): String?
 }
 
-class AppPreferences(
+class AppPreferencesImpl(
     context: Context,
     private val encryptedPrefsHelper: IEncrypted,
     private val coroutineDispatcher: CoroutineDispatcher,
-) : IAppPreferences {
+) : AppPreferences {
 
     private val sharedPreferences =
         context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
@@ -43,13 +42,13 @@ class AppPreferences(
         return try {
             sharedPreferences.let {
                 val key = shareKey.name
-                when (T::class) {
-                    Int::class -> it.getInt(key, default as Int)
-                    Long::class -> it.getLong(key, default as Long)
-                    Boolean::class -> it.getBoolean(key, default as Boolean)
-                    String::class -> it.getString(key, default as String)
-                    Float::class, Double::class -> it.getFloat(key, default as Float)
-                    Set::class -> it.getStringSet(key, null)
+                when (default) {
+                    is Int -> it.getInt(key, default as Int)
+                    is Long -> it.getLong(key, default as Long)
+                    is Boolean -> it.getBoolean(key, default as Boolean)
+                    is String -> it.getString(key, default as String)
+                    is Float, Double::class -> it.getFloat(key, default as Float)
+                    is Set<*> -> it.getStringSet(key, null)
                     else -> default
                 }
             }?.convert<T>() ?: default
@@ -95,4 +94,4 @@ class AppPreferences(
     }
 }
 
-typealias AppPreferenceKey = AppPreferences.AppPrefKey
+typealias AppPreferenceKey = AppPreferencesImpl.AppPrefKey
