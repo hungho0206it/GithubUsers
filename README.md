@@ -11,7 +11,7 @@ A **Clean Architecture** Android sample that demonstrates how to browse public G
 - Image loading & caching with **Glide**
 - Modern UI: ViewBinding, Navigation Component, Material 3 widgets
 - Two flavours: `dev` (debuggable, `*.dev` idSuffix) & `prod`
-- 90 %+ unit‑test coverage enforced by **Kover** (JaCoCo wrapper)
+- 90 %+ unit‑test coverage enforced by **Kover**
 
 ---
 ## 🏗 Tech stack
@@ -24,7 +24,7 @@ A **Clean Architecture** Android sample that demonstrates how to browse public G
 | **Network**  | Retrofit 2, OkHttp 3, Gson converter                                                                            |
 | **Database** | Room + Paging, SQLCipher                                                                                        |
 | **Testing**  | JUnit 4, MockK, Coroutine Test, Room Test, MockWebServer, Robolectric, Espresso                                 |
-| **Coverage** | Kover plugin (JaCoCo)                                                                                           |
+| **Coverage** | Kover plugin                                                                                                    |
 | **Build**    | Gradle KTS (Java 11 toolchain, Compile/Target SDK 35)                                                           |
 
 _Exact versions are centralised in **`libs.versions.toml`**._
