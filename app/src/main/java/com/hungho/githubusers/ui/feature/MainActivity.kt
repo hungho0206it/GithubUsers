@@ -33,14 +33,6 @@ internal class MainActivity : AppCompatActivity() {
         navController = navHostFragment?.navController
     }
 
-    fun onLoading(isLoading: Boolean) {
-        if (isLoading) {
-            showLoading()
-        } else {
-            dismissLoading()
-        }
-    }
-
     private fun showLoading() {
         if (loadingDialogFragment == null) {
             loadingDialogFragment = LoadingDialogFragment.Companion.newInstance()
@@ -58,5 +50,13 @@ internal class MainActivity : AppCompatActivity() {
 
         // Set dark icons (black text) on the status bar
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
+
+    fun onLoading(isLoading: Boolean) {
+        if (isLoading) {
+            showLoading()
+        } else {
+            dismissLoading()
+        }
     }
 }

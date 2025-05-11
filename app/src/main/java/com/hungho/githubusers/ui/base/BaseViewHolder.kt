@@ -14,6 +14,8 @@ internal abstract class BaseViewHolder<Item>(
 
     var item: Item? = null
 
+    protected abstract fun onBind(item: Item, position: Int)
+
     init {
         onItemClickListener?.let {
             this.itemView.setOnSingleClickListener {
@@ -21,12 +23,6 @@ internal abstract class BaseViewHolder<Item>(
             }
         }
 
-    }
-
-    protected abstract fun onBind(item: Item, position: Int)
-
-    open fun onBind(item: Item, position: Int, payloads: List<Any>) {
-        onBind(item, position)
     }
 
     fun bind(item: Item, position: Int) {
@@ -38,5 +34,9 @@ internal abstract class BaseViewHolder<Item>(
     fun bind(item: Item, position: Int, payloads: List<Any>) {
         this.item = item
         onBind(item, position, payloads)
+    }
+
+    open fun onBind(item: Item, position: Int, payloads: List<Any>) {
+        onBind(item, position)
     }
 }
