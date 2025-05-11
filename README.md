@@ -75,7 +75,7 @@ HTML reports: `app/build/reports/kover/html/index.html`
 ## 📸 Screenshots
 | List | User Detail |
 |------|-----------------|
-| ![Screenshot_1746950867](https://github.com/user-attachments/assets/862f2262-b336-4b56-a36a-84acf462aa8f) | ![Screenshot_1746950865](https://github.com/user-attachments/assets/4af631ec-3eb6-49a2-9c19-c9e9edecfc9c) 
+| ![Screenshot_1746950865](https://github.com/user-attachments/assets/4af631ec-3eb6-49a2-9c19-c9e9edecfc9c) | ![Screenshot_1746950867](https://github.com/user-attachments/assets/862f2262-b336-4b56-a36a-84acf462aa8f)
 
 ---
 ## 🤝 Contributing
