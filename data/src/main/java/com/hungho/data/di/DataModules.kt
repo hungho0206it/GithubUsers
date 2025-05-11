@@ -11,6 +11,7 @@ import com.hungho.data.helper.KeyProvider
 import com.hungho.data.helper.SecretHelper
 import com.hungho.data.local.database.AppDatabase
 import com.hungho.data.local.storage.AppPreferences
+import com.hungho.data.local.storage.AppPreferencesImpl
 import com.hungho.data.remote.retrofit.helper.HeaderInterceptor
 import com.hungho.data.remote.retrofit.helper.NetworkHelper
 import com.hungho.data.repository.UserRepositoryImpl
@@ -48,8 +49,8 @@ val helperModule = module {
 
 val localModule = module {
     singleOf(AppDatabase::getInstance)
-    single {
-        AppPreferences(androidContext(), get(), get(named("dispatcherIO")))
+    single<AppPreferences> {
+        AppPreferencesImpl(androidContext(), get(), get(named("dispatcherIO")))
     }
 }
 
