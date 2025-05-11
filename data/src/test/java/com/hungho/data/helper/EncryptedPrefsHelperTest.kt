@@ -18,7 +18,7 @@ class EncryptedPrefsHelperTest {
         val keyProvider = mockk<KeyProvider>()
         every { keyProvider.getSecretKey() } returns secretKey
 
-        val helper = EncryptedPrefsHelper(keyProvider)
+        val helper = EncryptedProviderPrefsHelper(keyProvider)
 
         val originalValue = "Hello, World!"
 

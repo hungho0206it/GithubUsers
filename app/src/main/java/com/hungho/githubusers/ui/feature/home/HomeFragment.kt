@@ -6,7 +6,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import com.hungho.data.helper.toFailure
+import com.hungho.data.helper.extension.toFailure
 import com.hungho.domain.model.UserModel
 import com.hungho.githubusers.R
 import com.hungho.githubusers.databinding.FragmentHomeBinding

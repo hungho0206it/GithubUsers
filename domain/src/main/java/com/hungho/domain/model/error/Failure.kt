@@ -1,4 +1,4 @@
-package com.hungho.data.error
+package com.hungho.domain.model.error
 
 sealed class Failure : Throwable() {
     class ApiFailure(val code: Int, val errorMessage: String) : Failure()

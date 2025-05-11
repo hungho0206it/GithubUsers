@@ -1,8 +1,8 @@
 package com.hungho.data.local.storage
 
 import android.content.Context
-import com.hungho.data.helper.IEncrypted
-import kotlinx.coroutines.CoroutineDispatcher
+import com.hungho.domain.provider.DispatcherProvider
+import com.hungho.domain.provider.EncryptedProvider
 import kotlinx.coroutines.withContext
 
 interface AppPreferences {
@@ -14,15 +14,15 @@ interface AppPreferences {
 
 class AppPreferencesImpl(
     context: Context,
-    private val encryptedPrefsHelper: IEncrypted,
-    private val coroutineDispatcher: CoroutineDispatcher,
+    private val encryptedPrefsHelper: EncryptedProvider,
+    private val dispatcherProvider: DispatcherProvider
 ) : AppPreferences {
 
     private val sharedPreferences =
         context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
 
     override suspend fun <T> saveValue(shareKey: AppPreferenceKey, value: T) {
-        withContext(coroutineDispatcher) {
+        withContext(dispatcherProvider.io()) {
             sharedPreferences.edit().apply {
                 val key = shareKey.name
                 when (value) {
@@ -61,7 +61,7 @@ class AppPreferencesImpl(
         shareKey: AppPreferenceKey,
         value: String
     ) {
-        withContext(coroutineDispatcher) {
+        withContext(dispatcherProvider.io()) {
             sharedPreferences.edit().apply {
                 val key = shareKey.name
                 val encrypted = encryptedPrefsHelper.encrypt(value)

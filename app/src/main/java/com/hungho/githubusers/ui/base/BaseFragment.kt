@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.hungho.data.error.Failure
+import com.hungho.domain.model.error.Failure
 import com.hungho.githubusers.R
 import com.hungho.githubusers.ui.feature.MainActivity
 import com.hungho.githubusers.ui.utils.extension.dismissKeyboard

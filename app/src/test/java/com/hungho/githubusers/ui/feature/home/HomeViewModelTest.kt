@@ -5,6 +5,7 @@ import androidx.paging.PagingData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListUpdateCallback
 import com.hungho.domain.model.UserModel
+import com.hungho.domain.provider.DispatcherProvider
 import com.hungho.domain.usecase.GetUserPagingSourceUseCase
 import io.mockk.every
 import io.mockk.mockk
@@ -27,12 +28,15 @@ import org.junit.Test
 class HomeViewModelTest {
     private val testDispatcher = UnconfinedTestDispatcher()
     private lateinit var getUserPagingSourceUseCase: GetUserPagingSourceUseCase
+    private lateinit var dispatcherProvider: DispatcherProvider
     private lateinit var viewModel: HomeViewModel
 
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         getUserPagingSourceUseCase = mockk()
+        dispatcherProvider = mockk()
+        every { dispatcherProvider.io() } returns testDispatcher
     }
 
     @After
@@ -48,7 +52,9 @@ class HomeViewModelTest {
         }
         val pagingData = PagingData.from(userModelList)
         every { getUserPagingSourceUseCase.invoke() } returns flowOf(pagingData)
-        viewModel = HomeViewModel(getUserPagingSourceUseCase, testDispatcher)
+
+        viewModel = HomeViewModel(getUserPagingSourceUseCase, dispatcherProvider)
+
         val differ = AsyncPagingDataDiffer(
             diffCallback = diffCallback,
             updateCallback = noListCallback,
