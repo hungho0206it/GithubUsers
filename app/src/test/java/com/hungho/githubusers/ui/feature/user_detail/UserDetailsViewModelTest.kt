@@ -2,8 +2,9 @@ package com.hungho.githubusers.ui.feature.user_detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.hungho.data.error.Failure
 import com.hungho.domain.model.UserDetailsModel
+import com.hungho.domain.model.error.Failure
+import com.hungho.domain.provider.DispatcherProvider
 import com.hungho.domain.usecase.GetUserDetailsUseCase
 import io.mockk.every
 import io.mockk.mockk
@@ -28,6 +29,7 @@ import java.io.IOException
 class UserDetailsViewModelTest {
     private val testDispatcher = UnconfinedTestDispatcher()
     private lateinit var getUserDetailsUseCase: GetUserDetailsUseCase
+    private lateinit var dispatcherProvider: DispatcherProvider
     private lateinit var viewModel: UserDetailsViewModel
 
     @get:Rule
@@ -37,6 +39,9 @@ class UserDetailsViewModelTest {
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         getUserDetailsUseCase = mockk()
+        dispatcherProvider = mockk()
+        every { dispatcherProvider.io() } returns testDispatcher
+        viewModel = UserDetailsViewModel(getUserDetailsUseCase, dispatcherProvider)
     }
 
     @After
@@ -61,8 +66,6 @@ class UserDetailsViewModelTest {
 
         every { getUserDetailsUseCase(username) } returns flowOf(expected)
 
-        viewModel = UserDetailsViewModel(getUserDetailsUseCase, testDispatcher)
-
         val observer = Observer<UserDetailsModel> {}
         viewModel.userDetails.observeForever(observer)
 
@@ -85,8 +88,6 @@ class UserDetailsViewModelTest {
         val exception = IOException(expectedMessage)
 
         every { getUserDetailsUseCase(username) } returns flow { throw exception }
-
-        viewModel = UserDetailsViewModel(getUserDetailsUseCase, testDispatcher)
 
         val errorObserver = Observer<Throwable> {}
         viewModel.error.observeForever(errorObserver)

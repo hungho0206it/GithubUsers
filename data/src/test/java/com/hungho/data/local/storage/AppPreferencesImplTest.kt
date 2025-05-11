@@ -3,7 +3,8 @@ package com.hungho.data.local.storage
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.test.core.app.ApplicationProvider
-import com.hungho.data.helper.EncryptedPrefsHelper
+import com.hungho.data.helper.EncryptedProviderPrefsHelper
+import com.hungho.domain.provider.DispatcherProvider
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.unmockkObject
@@ -23,7 +24,8 @@ import org.robolectric.RobolectricTestRunner
 class AppPreferencesImplTest {
     private lateinit var context: Context
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var encryptedPrefsHelper: EncryptedPrefsHelper
+    private lateinit var encryptedPrefsHelper: EncryptedProviderPrefsHelper
+    private lateinit var dispatcherProvider: DispatcherProvider
     private lateinit var appPreferences: AppPreferencesImpl
 
     private val testKey = AppPreferenceKey.LONG_LAST_TIME_FETCH_USER
@@ -33,8 +35,12 @@ class AppPreferencesImplTest {
         context = ApplicationProvider.getApplicationContext()
         sharedPreferences = context.getSharedPreferences("test_prefs", Context.MODE_PRIVATE)
         encryptedPrefsHelper = mockk()
+        dispatcherProvider = mockk()
+
+        every { dispatcherProvider.io() } returns UnconfinedTestDispatcher()
+
         appPreferences =
-            AppPreferencesImpl(context, encryptedPrefsHelper, UnconfinedTestDispatcher())
+            AppPreferencesImpl(context, encryptedPrefsHelper, dispatcherProvider)
     }
 
     @After

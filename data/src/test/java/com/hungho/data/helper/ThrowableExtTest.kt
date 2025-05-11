@@ -1,7 +1,8 @@
 package com.hungho.data.helper
 
 import com.google.gson.JsonParseException
-import com.hungho.data.error.Failure
+import com.hungho.data.helper.extension.toFailure
+import com.hungho.domain.model.error.Failure
 import io.mockk.every
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals

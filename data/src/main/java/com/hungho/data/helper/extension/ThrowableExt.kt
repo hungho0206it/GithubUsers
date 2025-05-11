@@ -1,7 +1,7 @@
-package com.hungho.data.helper
+package com.hungho.data.helper.extension
 
 import com.google.gson.JsonParseException
-import com.hungho.data.error.Failure
+import com.hungho.domain.model.error.Failure
 import org.json.JSONException
 import retrofit2.HttpException
 import java.io.IOException

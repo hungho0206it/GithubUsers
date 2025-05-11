@@ -3,21 +3,14 @@ package com.hungho.data.helper
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Base64
+import com.hungho.domain.provider.EncryptedProvider
+import com.hungho.domain.provider.KeyProvider
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
-interface KeyProvider {
-    fun getSecretKey(): SecretKey
-}
-
-interface IEncrypted {
-    fun encrypt(value: String): String
-    fun decrypt(encryptedBase64: String): String
-}
-
-class AndroidKeyStoreProvider : KeyProvider {
+internal class AndroidKeyStoreProvider : KeyProvider {
     // Generate a secret key using the Android Keystore.
     override fun getSecretKey(): SecretKey {
         val keyGen =
@@ -38,7 +31,7 @@ class AndroidKeyStoreProvider : KeyProvider {
 
 }
 
-class EncryptedPrefsHelper(private val keyProvider: KeyProvider) : IEncrypted {
+internal class EncryptedProviderPrefsHelper(private val keyProvider: KeyProvider) : EncryptedProvider {
 
     // Encrypt string value using AES then convert to Base64
     override fun encrypt(value: String): String {
