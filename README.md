@@ -23,7 +23,7 @@ A **Clean Architecture** Android sample that demonstrates how to browse public G
 | **Images**   | Glide                                                                                                           |
 | **Network**  | Retrofit 2, OkHttp 3, Gson converter                                                                            |
 | **Database** | Room + Paging, SQLCipher                                                                                        |
-| **Testing**  | JUnit 4, MockK, Coroutine Test, Room Test, MockWebServer, Robolectric, Espresso                                 |
+| **Testing**  | JUnit 4, MockK, Coroutine Test, Room Test, MockWebServer, Robolectric                                 |
 | **Coverage** | Kover plugin                                                                                                    |
 | **Build**    | Gradle KTS (Java 11 toolchain, Compile/Target SDK 35)                                                           |
 
@@ -76,6 +76,9 @@ data/
 ./gradlew koverHtmlReport                 # unit tests with coverage
 ```
 HTML reports: `app/build/reports/kover/html/index.html`
+
+<img width="1724" alt="Screenshot 2025-05-11 at 7 39 36 PM" src="https://github.com/user-attachments/assets/14a1051c-1c35-4673-a93d-7e93bf15a639" />
+
 
 ---
 ## 📸 Screenshots
