@@ -40,10 +40,10 @@ _Exact versions are centralised in **`libs.versions.toml`**._
 ---
 ## 🗺 Architecture
 ```text
-presentation (:app)  <--Koin-->  domain (:domain)  <--interface-->  data (:data)
-     | ViewBinding              | UseCases                        | RepositoryImpl
-     | ViewModel                | Models                          | Retrofit, Room
-     | PagingData<UIModel>      | Repository                      | RemoteMediator
+presentation (:app)  <------->  domain (:domain)  <-------->  data (:data)
+     | ViewBinding              | UseCases                   | RepositoryImpl
+     | ViewModel                | Models                     | Retrofit, Room
+     | PagingData<UIModel>      | Repository                 | RemoteMediator
 ```
 * **Unidirectional data‑flow**  
   `UI → ViewModel intents → UseCases → Repository → DB/Net → ViewModel state → UI`
