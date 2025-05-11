@@ -57,12 +57,18 @@ cd GithubUsers
 ```
 > **Requirements**: JDK 11 & Android Studio Iguana | Minimum SDK 24
 
-### Optional – Personal token
-Unauthenticated GitHub calls work, but if you hit rate‑limits you can add
-```properties
-GITHUB_TOKEN=ghp_********************************
+## 🔐 Secure keys with Secret Manager (C++)
+The project keeps sensitive strings – the SQLCipher pass‑phrase and an optional GitHub Personal‑Access‑Token – in a tiny native layer so they do **not** appear as plain‑text in the APK.
+
+### File layout
 ```
-to `local.properties` and attach it in an `OkHttp` interceptor.
+data/
+└── src/main
+    ├── cpp/
+    │   ├── secret_manager.cpp # this file is added in email if not found, please direct me
+    │   └── CMakeLists.txt
+    └── /com/hungho/data/helper/SecretHelper.kt
+```
 
 ---
 ## 🧪 Tests & coverage
