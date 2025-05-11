@@ -28,8 +28,6 @@ import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 import java.util.concurrent.TimeUnit
 
 @ExperimentalPagingApi
@@ -128,6 +126,36 @@ class UserRemoteMediatorTest {
     }
 
     @Test
+    fun `refresh returns Success with empty data`() = runTest {
+        // Given
+        val pagingState = createPagingState()
+        val userResponses = emptyList<UserResponse>()
+        coEvery { userServices.getUsers(any(), any()) } returns userResponses
+        coEvery {
+            appPreferences.saveValue(
+                AppPreferenceKey.LONG_LAST_TIME_FETCH_USER,
+                any<Long>()
+            )
+        } returns Unit
+        val transactionLambda = slot<suspend () -> Unit>()
+        coEvery { database.withTransaction(capture(transactionLambda)) } coAnswers {
+            transactionLambda.captured.invoke()
+        }
+
+        // When
+        val result = userRemoteMediator.load(
+            LoadType.REFRESH,
+            pagingState
+        )
+
+        // Then
+        assertTrue(result is MediatorResult.Success)
+        assertTrue((result as MediatorResult.Success).endOfPaginationReached)
+        coVerify { userDao.clearAll() }
+        coVerify { userRemoteKeyDao.clearAll() }
+    }
+
+    @Test
     fun `refresh returns Error`() = runTest {
         //Given
         val pagingState = createPagingState()
@@ -158,7 +186,7 @@ class UserRemoteMediatorTest {
         }
 
     @Test
-    fun `load APPEND returns Success with endOfPaginationReached true when nextKey is null`() =
+    fun `load APPEND returns Success with endOfPaginationReached true when remoteKey is null`() =
         runTest {
             // Given
             val lastUserEntities = IntRange(1, 20).mockListUserResponse().map { it.toUserEntity() }
@@ -179,6 +207,46 @@ class UserRemoteMediatorTest {
             coEvery {
                 userRemoteKeyDao.getRemoteKeyByUserId(any())
             } returns null
+
+            // When
+            val result = userRemoteMediator.load(
+                LoadType.APPEND,
+                pagingState
+            )
+
+            // Then
+            assertTrue(result is MediatorResult.Success)
+            assertTrue((result as MediatorResult.Success).endOfPaginationReached)
+        }
+
+    @Test
+    fun `load APPEND returns Success with endOfPaginationReached true when remoteKey nextKey is null`() =
+        runTest {
+            // Given
+            val lastUserEntities = IntRange(1, 20).mockListUserResponse().map { it.toUserEntity() }
+
+            val pagingState = PagingState<Int, UserEntity>(
+                config = PagingConfig(pageSize = UserRemoteMediator.PAGE_SIZE),
+                anchorPosition = 0,
+                pages = listOf(
+                    Page<Int, UserEntity>(
+                        data = lastUserEntities,
+                        prevKey = null,
+                        nextKey = null
+                    )
+                ),
+                leadingPlaceholderCount = 0,
+            )
+
+            val remoteKey = UserRemoteKeyEntity(
+                userId = lastUserEntities.last().id,
+                prevKey = null,
+                nextKey = null
+            )
+
+            coEvery {
+                userRemoteKeyDao.getRemoteKeyByUserId(any())
+            } returns remoteKey
 
             // When
             val result = userRemoteMediator.load(
