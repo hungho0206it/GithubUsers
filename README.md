@@ -41,9 +41,9 @@ _Exact versions are centralised in **`libs.versions.toml`**._
 ## 🗺 Architecture
 ```text
 presentation (:app)  <------->  domain (:domain)  <-------->  data (:data)
-     | ViewBinding              | UseCases                   | RepositoryImpl
+     | UI View                  | UseCases                   | RepositoryImpl
      | ViewModel                | Models                     | Retrofit, Room
-     | PagingData<UIModel>      | Repository                 | RemoteMediator
+     | Aoolication              | Repository                 | RemoteMediator
 ```
 * **Unidirectional data‑flow**  
   `UI → ViewModel intents → UseCases → Repository → DB/Net → ViewModel state → UI`
@@ -65,7 +65,7 @@ The project keeps sensitive strings – the SQLCipher pass‑phrase and an optio
 data/
 └── src/main
     ├── cpp/
-    │   ├── secret_manager.cpp # this file is added in email if not found, please direct me
+    │   ├── secret_manager.cpp # This file is attached to the email. If you can’t find it, please let me know.
     │   └── CMakeLists.txt
     └── /com/hungho/data/helper/SecretHelper.kt
 ```
